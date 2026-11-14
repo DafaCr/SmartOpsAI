@@ -1,9 +1,11 @@
 import { test, describe, before, after, afterEach } from 'node:test'
 import assert from 'node:assert'
 
-// Los tests nunca llaman a la IA real: se vacía la clave antes de cargar la app
+// Los tests nunca llaman a la IA real: se vacía la clave y se simula estar fuera de Vercel
 // (process.loadEnvFile no sobrescribe variables ya definidas)
 process.env.AI_GATEWAY_API_KEY = ''
+delete process.env.VERCEL
+delete process.env.VERCEL_OIDC_TOKEN
 
 const { default: app } = await import('./app.js')
 const { mockStreamingModel, readNdjson, ANALISIS_EMERGENCIA } = await import('./test-utils.js')

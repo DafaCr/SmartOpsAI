@@ -1,13 +1,11 @@
 import { Router } from 'express'
 import rateLimit from 'express-rate-limit'
 
+import { isAIConfigured } from '../config.js'
 import { solicitudSchema } from '../schemas/analysis.js'
 import { streamAnalysis, describeError, AnalysisError } from '../services/analyzer.js'
 
 // Nota: las variables de .env se cargan en ../env.js (importado primero en app.js)
-
-// En Vercel el AI Gateway se autentica con OIDC (VERCEL_OIDC_TOKEN); fuera, con la API key
-const isAIConfigured = () => Boolean(process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN)
 
 const aiRateLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minuto

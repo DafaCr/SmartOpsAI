@@ -3,7 +3,7 @@ import express from 'express'
 import { pathToFileURL } from 'node:url'
 
 import { corsMiddleware } from './middlewares/cors.js'
-import { CONFIG, DEFAULTS } from './config.js'
+import { CONFIG, DEFAULTS, isAIConfigured } from './config.js'
 import { aiRouter } from './routes/ai.js'
 import { kbRouter } from './routes/kb.js'
 
@@ -22,7 +22,7 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     model: CONFIG.MODEL_AI,
-    ai: Boolean(process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN)
+    ai: isAIConfigured()
   })
 })
 
