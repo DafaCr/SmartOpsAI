@@ -41,11 +41,18 @@ vercel.json                          Vercel Services: backend en /api, frontend 
 │   └── *.test.js                    Tests (modelo simulado, sin coste)
 └── frontend/                        React + Vite
     └── src/
-        ├── pages/AnalyzerPage.jsx   Pantalla principal
-        ├── pages/KnowledgePage.jsx  Consulta de la base de conocimiento
-        ├── hooks/useAnalysisStream.js  Lector del stream
-        └── components/AnalysisView.jsx Resultado visual en vivo
+        ├── pages/NewRequestPage.jsx    Nueva solicitud (canal, plantillas, área)
+        ├── pages/ResultPage.jsx        Resultado en streaming + decisión del operador
+        ├── pages/MetricsPage.jsx       KPIs, tipologías, tiempos y registro (CSV)
+        ├── pages/KnowledgePage.jsx     Consulta de la base de conocimiento
+        ├── components/AiCard.jsx       Evaluación de la IA que se rellena en vivo
+        ├── context/AnalysisContext.jsx Stream + historial compartidos entre pantallas
+        └── styles/global.css           Tokens del diseño «SmartOps AI Corporate Minimal»
 ```
+
+## Validación humana y métricas
+
+Cada análisis queda **pendiente de validación** hasta que el operador lo **aprueba**, lo **corrige** (categoría, prioridad y nota) o lo **rechaza**. SmartOps AI no ejecuta acciones. Las métricas (clasificación correcta, recomendaciones útiles, tiempos) se calculan con esas decisiones y se guardan **solo en el navegador** del operador (`localStorage`); se pueden exportar a CSV.
 
 ## Desarrollo local
 

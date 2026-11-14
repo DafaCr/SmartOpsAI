@@ -1,0 +1,135 @@
+.panel {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.blue {
+  color: var(--primary);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.head h2 {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface-low);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.empty {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.groupLabel {
+  color: var(--muted);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.list li {
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+}
+
+.list li.itemOpen {
+  border-color: var(--border);
+  background: var(--canvas);
+}
+
+.itemHead {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.45rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.itemHead:hover {
+  background: var(--surface-low);
+}
+
+.ref,
+.refCited {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+}
+
+.ref {
+  color: var(--muted);
+  background: var(--surface-low);
+}
+
+.refCited {
+  color: var(--primary-hover);
+  background: var(--ice);
+}
+
+.itemTitle {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-2);
+  min-width: 0;
+}
+
+.chevron {
+  color: var(--muted);
+}
+
+.quote {
+  margin: 0 0.5rem 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-left: 3px solid var(--primary);
+  background: var(--surface);
+  border-radius: var(--radius-xs);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-2);
+  animation: appear 0.2s ease-out;
+}
+
+.quoteDoc {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.more summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--primary-hover);
+  padding: 0.25rem 0.5rem;
+  width: fit-content;
+}
+
+.more[open] summary {
+  margin-bottom: 0.25rem;
+}
