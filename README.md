@@ -75,10 +75,11 @@ Variables del backend (`backend/.env` en local, panel de Vercel en producción):
 | Variable | Obligatoria | Descripción |
 |---|---|---|
 | `AI_GATEWAY_API_KEY` | Solo fuera de Vercel | Clave de Vercel AI Gateway. En Vercel se usa OIDC automáticamente. |
-| `MODEL_AI` | No | Modelo `proveedor/modelo`. Por defecto `nvidia/nemotron-3.5-lightning-free`. |
+| `MODEL_AI` | No | Modelo `proveedor/modelo`. Por defecto `google/gemini-2.5-flash-lite` (rápido, barato y disponible en el plan gratuito). |
+| `MODEL_AI_FALLBACKS` | No | Modelos de respaldo separados por comas. Por defecto `openai/gpt-5-mini`. Vacío = sin respaldo. |
 | `ALLOWED_ORIGINS` | No | Orígenes CORS extra si el frontend está en otro dominio. |
 
-> **Importante:** Vercel AI Gateway exige **una tarjeta registrada** en la cuenta para atender peticiones, incluso con modelos gratuitos. Sin ella, la app mostrará ese aviso al analizar.
+> **Importante:** Vercel AI Gateway exige **una tarjeta registrada** en la cuenta, incluso con modelos gratuitos. En el **plan gratuito** algunos modelos (Claude, Gemini 3, GPT-5.4…) no están disponibles y hay límites de peticiones por minuto; por eso se configura un modelo de respaldo.
 
 ## Despliegue en Vercel
 

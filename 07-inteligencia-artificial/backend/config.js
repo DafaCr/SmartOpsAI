@@ -15,7 +15,16 @@ export const isAIConfigured = () => Boolean(
   process.env.VERCEL
 )
 
+const list = value => (value ?? '').split(',').map(item => item.trim()).filter(Boolean)
+
 export const CONFIG = {
-  // Modelo servido a través de Vercel AI Gateway (formato proveedor/modelo)
-  MODEL_AI: process.env.MODEL_AI || 'anthropic/claude-haiku-5.5'
+  // Modelo principal, servido por Vercel AI Gateway (formato proveedor/modelo).
+  // Disponible en el plan gratuito; probado con los casos de ejemplo.
+  MODEL_AI: process.env.MODEL_AI || 'google/gemini-2.5-flash-lite',
+
+  // Modelos de respaldo, en orden: el Gateway los usa si el principal falla
+  // o alcanza su límite de peticiones. Separados por comas en MODEL_AI_FALLBACKS.
+  MODEL_AI_FALLBACKS: process.env.MODEL_AI_FALLBACKS !== undefined
+    ? list(process.env.MODEL_AI_FALLBACKS)
+    : ['openai/gpt-5-mini']
 }

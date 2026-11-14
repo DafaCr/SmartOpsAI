@@ -105,6 +105,24 @@ describe('streamAnalysis', () => {
     assert.strictEqual(final.analisis.prioridad, null)
   })
 
+  test('aplica la regla de "rechazada" aunque el modelo envíe valores', async () => {
+    const incumple = { ...ANALISIS_RECHAZADA, confianza: 'Alta', fuentes: ['REG-02 §4'], recomendacion: ['x'] }
+    const events = await collect(streamAnalysis(SOLICITUD, { model: mockStreamingModel(JSON.stringify(incumple)) }))
+    const { analisis } = events.at(-1)
+    assert.strictEqual(analisis.confianza, null)
+    assert.deepStrictEqual(analisis.fuentes, [])
+    assert.deepStrictEqual(analisis.recomendacion, [])
+  })
+
+  test('tolera null en textos y listas (variaciones habituales de los modelos)', async () => {
+    const conNulls = { ...ANALISIS_EMERGENCIA, motivo_estado: null, motivo_prioridad: '', informacion_faltante: null }
+    const events = await collect(streamAnalysis(SOLICITUD, { model: mockStreamingModel(JSON.stringify(conNulls)) }))
+    const { analisis } = events.at(-1)
+    assert.strictEqual(analisis.motivo_estado, null)
+    assert.strictEqual(analisis.motivo_prioridad, null)
+    assert.deepStrictEqual(analisis.informacion_faltante, [])
+  })
+
   test('lanza AnalysisError si el JSON final no cumple el formato', async () => {
     await assert.rejects(collect(streamAnalysis(SOLICITUD, { model: mockStreamingModel('No sé') })), AnalysisError)
     await assert.rejects(collect(streamAnalysis(SOLICITUD, { model: mockStreamingModel('{"estado":"otro"}') })), AnalysisError)

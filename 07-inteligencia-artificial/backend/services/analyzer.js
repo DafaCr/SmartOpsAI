@@ -51,7 +51,19 @@ export async function * streamAnalysis ({ texto, origen, rol }, { model = CONFIG
     system: SYSTEM_PROMPT,
     prompt: buildUserMessage({ origen, texto, fragmentos }),
     temperature: 0,
-    maxOutputTokens: 2000,
+    // Holgura para modelos que razonan: el razonamiento también consume tokens de salida
+    maxOutputTokens: 4000,
+    // Clasificar no requiere razonamiento largo: se reduce para que la respuesta
+    // empiece a llegar antes. Cada proveedor ignora las opciones que no son suyas.
+    providerOptions: {
+      // Respaldo automático del AI Gateway (solo con modelos "proveedor/modelo")
+      ...(typeof model === 'string' && CONFIG.MODEL_AI_FALLBACKS.length > 0 && {
+        gateway: { models: CONFIG.MODEL_AI_FALLBACKS }
+      }),
+      google: { thinkingConfig: { thinkingBudget: 0 } },
+      openai: { reasoningEffort: 'minimal' },
+      anthropic: { thinking: { type: 'disabled' } }
+    },
     abortSignal
   })
 
