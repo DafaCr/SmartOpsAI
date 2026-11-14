@@ -17,5 +17,5 @@ export const isAIConfigured = () => Boolean(
 
 export const CONFIG = {
   // Modelo servido a través de Vercel AI Gateway (formato proveedor/modelo)
-  MODEL_AI: process.env.MODEL_AI || 'nvidia/nemotron-3.5-lightning-free'
+  MODEL_AI: process.env.MODEL_AI || 'anthropic/claude-haiku-5.5'
 }
