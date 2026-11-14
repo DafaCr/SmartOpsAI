@@ -4,8 +4,12 @@ import rateLimit from 'express-rate-limit'
 
 import { JobModel } from '../models/job.js'
 import { CONFIG } from '../config.js'
+import { solicitudSchema } from '../schemas/analysis.js'
+import { analyzeRequest, AnalysisError } from '../services/analyzer.js'
 
 // Nota: las variables de .env se cargan en ../env.js (importado primero en app.js)
+
+const isAIConfigured = () => Boolean(process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN)
 
 const aiRateLimiter = rateLimit({
   windowMs: 60 * 1000, // -> 1 minuto
@@ -18,9 +22,34 @@ const aiRateLimiter = rateLimit({
 export const aiRouter = Router()
 aiRouter.use(aiRateLimiter)
 
+// POST /api/ai/analizar  { texto, origen?, rol? }
+// Clasifica y prioriza una solicitud operativa de FRIOCHAP con el prompt fijo de SmartOps AI
+aiRouter.post('/analizar', async (req, res) => {
+  const parsed = solicitudSchema.safeParse(req.body ?? {})
+  if (!parsed.success) {
+    return res.status(400).json({ error: parsed.error.issues[0]?.message ?? 'Solicitud inválida' })
+  }
+
+  if (!isAIConfigured()) {
+    return res.status(503).json({ error: 'El servicio de IA no está configurado (falta AI_GATEWAY_API_KEY)' })
+  }
+
+  try {
+    const result = await analyzeRequest(parsed.data)
+    return res.json(result)
+  } catch (error) {
+    if (error instanceof AnalysisError) {
+      console.error('[AI] Respuesta inválida del modelo:', error.cause?.message, '\n', error.raw)
+      return res.status(502).json({ error: 'La IA devolvió una respuesta no válida. Inténtalo de nuevo.' })
+    }
+    console.error('[AI] Error analizando solicitud:', error)
+    return res.status(500).json({ error: 'Error al analizar la solicitud' })
+  }
+})
+
 aiRouter.get('/summary/:id', async (req, res) => {
   // En Vercel se autentica con OIDC (VERCEL_OIDC_TOKEN); fuera de Vercel hace falta la API key
-  if (!process.env.AI_GATEWAY_API_KEY && !process.env.VERCEL_OIDC_TOKEN) {
+  if (!isAIConfigured()) {
     return res.status(503).json({ error: 'El servicio de IA no está configurado (falta AI_GATEWAY_API_KEY)' })
   }
 

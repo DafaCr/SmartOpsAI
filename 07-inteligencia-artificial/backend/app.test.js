@@ -46,3 +46,24 @@ describe('GET /jobs', () => {
     )
   })
 })
+describe('POST /api/ai/analizar', () => {
+  test('rechaza una solicitud sin texto (400)', async () => {
+    const response = await fetch(`${BASE_URL}/api/ai/analizar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ texto: '' })
+    })
+    assert.strictEqual(response.status, 400)
+    const body = await response.json()
+    assert.ok(body.error)
+  })
+
+  test('rechaza un origen no válido (400)', async () => {
+    const response = await fetch(`${BASE_URL}/api/ai/analizar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ texto: 'La cámara no enfría', origen: 'Telegram' })
+    })
+    assert.strictEqual(response.status, 400)
+  })
+})

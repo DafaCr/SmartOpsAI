@@ -12,6 +12,7 @@ const JobDetail = lazy(() => import('./pages/Detail.jsx'))
 const ProfilePage = lazy(() => import('./pages/ProfilePage.jsx'))
 const Login = lazy(() => import('./pages/Login.jsx'))
 const Register = lazy(() => import('./pages/Register.jsx'))
+const AnalizarPage = lazy(() => import('./pages/Analizar.jsx'))
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/analizar" element={<AnalizarPage />} />
           <Route path="/jobs/:jobId" element={<JobDetail />} />
           <Route path="/profile" element={
             <ProtectedRoute redirectTo="/login">

@@ -6,5 +6,5 @@ export const DEFAULTS = {
 
 export const CONFIG = {
   // Modelo servido a través de Vercel AI Gateway (requiere AI_GATEWAY_API_KEY)
-  MODEL_AI: process.env.MODEL_AI ?? 'mistral/devstral-small-2'
+  MODEL_AI: process.env.MODEL_AI ?? 'nvidia/nemotron-3.5-lightning-free'
 }

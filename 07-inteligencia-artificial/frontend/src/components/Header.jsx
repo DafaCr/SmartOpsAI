@@ -25,6 +25,9 @@ export function Header () {
       <nav>
         <NavLink
           className={({ isActive }) => isActive ? 'nav-link-active' : ''}
+          to="/analizar">Analizar solicitud</NavLink>
+        <NavLink
+          className={({ isActive }) => isActive ? 'nav-link-active' : ''}
           to="/search">Empleos</NavLink>
           {
             isLoggedIn && (
