@@ -8,7 +8,7 @@ import { useFavoritesStore } from "../store/favoritesStore"
 import { useAISummary } from "../hooks/useAISummary"
 import { Streamdown } from 'streamdown'
 
-const API_URL = import.meta.env.VITE_API_URL
+import { API_URL } from '../config.js'
 
 function JobSection ({ title, content }) {
   const html = snarkdown(content)

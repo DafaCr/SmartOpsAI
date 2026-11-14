@@ -4,4 +4,10 @@ import react from '@vitejs/plugin-react-swc'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    // En desarrollo, /api se reenvía al backend Express (npm run dev:backend)
+    proxy: {
+      '/api': 'http://localhost:1234'
+    }
+  }
 })

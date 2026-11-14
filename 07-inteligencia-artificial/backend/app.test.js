@@ -26,7 +26,7 @@ after(async () => {
 
 describe('GET /jobs', () => {
   test('debe responder con 200 y un array de trabajos', async () => {
-    const response = await fetch(`${BASE_URL}/jobs`)
+    const response = await fetch(`${BASE_URL}/api/jobs`)
     assert.strictEqual(response.status, 200)
 
     const json = await response.json()
@@ -35,7 +35,7 @@ describe('GET /jobs', () => {
 
   test('debe filtrar trabajos por tecnología', async () => {
     const tech = 'react'
-    const response = await fetch(`${BASE_URL}/jobs?technology=${tech}`)
+    const response = await fetch(`${BASE_URL}/api/jobs?technology=${tech}`)
     assert.strictEqual(response.status, 200)
 
     const json = await response.json()

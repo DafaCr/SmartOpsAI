@@ -5,6 +5,7 @@ import { Pagination } from '../components/Pagination.jsx'
 import { SearchFormSection } from '../components/SearchFormSection.jsx'
 import { JobListings } from '../components/JobListings.jsx'
 import styles from './Search.module.css'
+import { API_URL } from '../config.js'
 
 const RESULTS_PER_PAGE = 4
 
@@ -47,7 +48,7 @@ const useFilters = () => {
 
         const queryParams = params.toString()
       
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/jobs?${queryParams}`)
+        const response = await fetch(`${API_URL}/jobs?${queryParams}`)
         const json = await response.json()
 
         setJobs(json.data)

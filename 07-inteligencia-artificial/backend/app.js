@@ -10,15 +10,18 @@ const PORT = process.env.PORT ?? DEFAULTS.PORT
 const app = express()
 
 app.set('trust proxy', 1)
+
+// Todas las rutas cuelgan de /api: en Vercel el rewrite /api/(.*) llega con el
+// prefijo intacto, y en local el proxy de Vite reenvía /api al backend.
 app.disable('x-powered-by')
 
 app.use(corsMiddleware())
 app.use(express.json())
 
-app.get('/health', (req, res) => res.json({ status: 'ok' }))
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }))
 
-app.use('/jobs', jobsRouter)
-app.use('/ai', aiRouter)
+app.use('/api/jobs', jobsRouter)
+app.use('/api/ai', aiRouter)
 
 // Solo levantamos el servidor si se ejecuta directamente (node app.js).
 // En Vercel y en los tests se importa `app` sin llamar a listen.
