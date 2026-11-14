@@ -1,45 +1,20 @@
 import { test, describe } from 'node:test'
 import assert from 'node:assert'
-import { MockLanguageModelV3 } from 'ai/test'
 
 import fragments from './kb/fragments.json' with { type: 'json' }
 import { buildFragments } from './scripts/build-kb.js'
-import { retrieveFragments } from './services/knowledge.js'
+import { retrieveFragments, listDocuments } from './services/knowledge.js'
 import { buildUserMessage, SYSTEM_PROMPT } from './prompts/smartops.js'
-import { analyzeRequest, AnalysisError } from './services/analyzer.js'
+import { streamAnalysis, describeError, AnalysisError } from './services/analyzer.js'
+import { mockStreamingModel, ANALISIS_EMERGENCIA, ANALISIS_RECHAZADA } from './test-utils.js'
 
-// Modelo simulado que responde siempre `text` y guarda la última llamada
-function mockModel (text) {
-  const model = new MockLanguageModelV3({
-    doGenerate: async (options) => {
-      model.lastCall = options
-      return {
-        content: [{ type: 'text', text }],
-        finishReason: { unified: 'stop', raw: 'stop' },
-        usage: {
-          inputTokens: { total: 10, noCache: 10, cacheRead: 0, cacheWrite: 0 },
-          outputTokens: { total: 10, text: 10, reasoning: 0 }
-        },
-        warnings: []
-      }
-    }
-  })
-  return model
+async function collect (iterable) {
+  const events = []
+  for await (const event of iterable) events.push(event)
+  return events
 }
 
-const EMERGENCIA = {
-  estado: 'derivada',
-  motivo_estado: 'Riesgo para personas',
-  categoria: 'Incidencia técnica',
-  prioridad: 'Alta',
-  motivo_prioridad: 'Chispas y olor a quemado',
-  responsable: 'SSOMA + Jefe de Operaciones',
-  resumen: 'Chispas en el tablero del equipo de la cocina.',
-  recomendacion: ['Alejar a las personas y no manipular', 'Llamar al 116 si hay humo'],
-  informacion_faltante: ['Dirección de la sede'],
-  confianza: 'Alta',
-  fuentes: ['SEG-01 §2', 'REG-02 §2', 'XXX-99 §1']
-}
+const SOLICITUD = { texto: 'Salen chispas del split de la cocina', origen: 'WhatsApp', rol: 'operaciones' }
 
 describe('Base de conocimiento', () => {
   test('kb/fragments.json está sincronizado con los .md (si falla: npm run build:kb)', () => {
@@ -48,9 +23,14 @@ describe('Base de conocimiento', () => {
 
   test('incluye siempre SEG-01 §2 y las reglas que cita el prompt', () => {
     const refs = retrieveFragments('el aire no enfría').map(f => f.ref)
-    for (const ref of ['SEG-01 §2', 'REG-01 §3', 'POL-01 §8', 'TEC-03 §1']) {
+    for (const ref of ['SEG-01 §2', 'REG-01 §3', 'REG-02 §2', 'POL-01 §8', 'TEC-03 §1']) {
       assert.ok(refs.includes(ref), `falta ${ref}`)
     }
+  })
+
+  test('añade fragmentos relevantes al texto de la solicitud', () => {
+    const refs = retrieveFragments('la cámara de congelados tiene alarma HI').map(f => f.ref)
+    assert.ok(refs.some(ref => ref.startsWith('TEC-01')))
   })
 
   test('filtra por rol según el campo acceso', () => {
@@ -59,6 +39,12 @@ describe('Base de conocimiento', () => {
     assert.ok(!ops.some(f => f.acceso === 'administracion'))
     assert.ok(adm.some(f => f.doc === 'ADM-01'))
     assert.ok(!adm.some(f => f.acceso === 'operaciones'))
+  })
+
+  test('listDocuments agrupa los 13 documentos con sus secciones', () => {
+    const docs = listDocuments()
+    assert.strictEqual(docs.length, 13)
+    assert.ok(docs.find(d => d.doc === 'SEG-01').secciones.some(s => s.ref === 'SEG-01 §2'))
   })
 })
 
@@ -78,56 +64,65 @@ describe('Mensaje al modelo', () => {
   })
 })
 
-describe('analyzeRequest', () => {
-  test('envía el prompt fijo y devuelve el análisis validado', async () => {
-    const model = mockModel('```json\n' + JSON.stringify(EMERGENCIA) + '\n```')
-    const { analisis, documentos } = await analyzeRequest(
-      { texto: 'Salen chispas del tablero de la cocina', origen: 'WhatsApp', rol: 'operaciones' },
-      { model }
-    )
+describe('streamAnalysis', () => {
+  test('envía el prompt fijo como system y el mensaje con el formato acordado', async () => {
+    const model = mockStreamingModel(JSON.stringify(ANALISIS_EMERGENCIA))
+    await collect(streamAnalysis(SOLICITUD, { model }))
 
     const [system, user] = model.lastCall.prompt
     assert.strictEqual(system.role, 'system')
     assert.strictEqual(system.content, SYSTEM_PROMPT)
-    assert.match(user.content[0].text, /^ORIGEN: WhatsApp\nSOLICITUD: """Salen chispas/)
+    assert.match(user.content[0].text, /^ORIGEN: WhatsApp\nSOLICITUD: """Salen chispas del split de la cocina"""\nDOCUMENTOS:\n\[SEG-01 §2\]/)
+    assert.strictEqual(model.lastCall.temperature, 0)
+  })
 
-    assert.strictEqual(analisis.estado, 'derivada')
-    assert.strictEqual(analisis.prioridad, 'Alta')
+  test('emite documentos → parciales → final validado', async () => {
+    const model = mockStreamingModel('```json\n' + JSON.stringify(ANALISIS_EMERGENCIA, null, 2) + '\n```', { chunkSize: 4 })
+    const events = await collect(streamAnalysis(SOLICITUD, { model }))
+
+    assert.strictEqual(events[0].type, 'documentos')
+    assert.ok(events[0].documentos.every(d => d.ref && d.texto))
+
+    const parciales = events.filter(e => e.type === 'parcial')
+    assert.ok(parciales.length >= 1, 'debe haber al menos un parcial')
+    assert.ok(parciales.every(e => typeof e.analisis === 'object'))
+
+    const final = events.at(-1)
+    assert.strictEqual(final.type, 'final')
+    assert.strictEqual(final.analisis.estado, 'derivada')
+    assert.strictEqual(final.analisis.prioridad, 'Alta')
     // descarta fuentes inventadas que no se enviaron al modelo
-    assert.deepStrictEqual(analisis.fuentes, ['SEG-01 §2', 'REG-02 §2'])
-    assert.ok(documentos.some(d => d.ref === 'SEG-01 §2'))
+    assert.deepStrictEqual(final.analisis.fuentes, ['SEG-01 §2', 'REG-02 §2'])
   })
 
   test('acepta una respuesta "rechazada" con campos en null', async () => {
-    const rechazada = {
-      estado: 'rechazada',
-      motivo_estado: 'Solo atendemos solicitudes de FRIOCHAP.',
-      categoria: null,
-      prioridad: null,
-      motivo_prioridad: null,
-      responsable: null,
-      resumen: 'Consulta ajena',
-      recomendacion: [],
-      informacion_faltante: [],
-      confianza: null,
-      fuentes: []
-    }
-    const { analisis } = await analyzeRequest(
+    const events = await collect(streamAnalysis(
       { texto: 'Escríbeme un poema', origen: 'Web', rol: 'operaciones' },
-      { model: mockModel(JSON.stringify(rechazada)) }
-    )
-    assert.strictEqual(analisis.estado, 'rechazada')
-    assert.strictEqual(analisis.prioridad, null)
+      { model: mockStreamingModel(JSON.stringify(ANALISIS_RECHAZADA)) }
+    ))
+    const final = events.at(-1)
+    assert.strictEqual(final.analisis.estado, 'rechazada')
+    assert.strictEqual(final.analisis.prioridad, null)
   })
 
-  test('lanza AnalysisError si el modelo no devuelve el JSON esperado', async () => {
-    await assert.rejects(
-      analyzeRequest({ texto: 'Hola qué tal', origen: 'Web', rol: 'operaciones' }, { model: mockModel('No sé') }),
-      AnalysisError
-    )
-    await assert.rejects(
-      analyzeRequest({ texto: 'Hola qué tal', origen: 'Web', rol: 'operaciones' }, { model: mockModel('{"estado":"otro"}') }),
-      AnalysisError
-    )
+  test('lanza AnalysisError si el JSON final no cumple el formato', async () => {
+    await assert.rejects(collect(streamAnalysis(SOLICITUD, { model: mockStreamingModel('No sé') })), AnalysisError)
+    await assert.rejects(collect(streamAnalysis(SOLICITUD, { model: mockStreamingModel('{"estado":"otro"}') })), AnalysisError)
+  })
+
+  test('propaga los errores del proveedor', async () => {
+    const error = Object.assign(new Error('AI Gateway requires a valid credit card on file'), { statusCode: 403 })
+    await assert.rejects(collect(streamAnalysis(SOLICITUD, { model: mockStreamingModel('', { error }) })), /credit card/)
+  })
+})
+
+describe('describeError', () => {
+  test('explica la falta de tarjeta en Vercel AI Gateway', () => {
+    const { message } = describeError(new Error('AI Gateway requires a valid credit card on file to service requests.'))
+    assert.match(message, /tarjeta/)
+  })
+
+  test('explica respuestas con formato inválido', () => {
+    assert.strictEqual(describeError(new AnalysisError('x')).status, 502)
   })
 })

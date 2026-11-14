@@ -89,6 +89,16 @@ export function retrieveFragments (texto, { rol = 'operaciones', extra = EXTRA_F
   return [...core, ...ranked].map(item => item.fragment)
 }
 
+// Documentos agrupados con sus secciones (para consultar la base desde el frontend)
+export function listDocuments () {
+  const docs = new Map()
+  for (const { doc, titulo, acceso, ref, apartado, texto } of fragments) {
+    if (!docs.has(doc)) docs.set(doc, { doc, titulo, acceso, secciones: [] })
+    docs.get(doc).secciones.push({ ref, apartado, texto })
+  }
+  return [...docs.values()]
+}
+
 // Formato pedido: [CÓDIGO §n] Título — texto
 export function formatFragment (fragment) {
   return `[${fragment.ref}] ${fragment.titulo} — ${fragment.texto}`

@@ -1,7 +1,7 @@
 {
   "name": "smartops-ai",
   "version": "1.0.0",
-  "description": "",
+  "description": "SmartOps AI — análisis de solicitudes operativas de FRIOCHAP con IA",
   "workspaces": [
     "frontend",
     "backend"
@@ -12,7 +12,8 @@
     "build": "npm run build --workspace=frontend",
     "start": "npm run start --workspace=backend",
     "test": "npm test --workspace=backend",
-    "lint": "npm run lint --workspace=frontend"
+    "lint": "npm run lint --workspace=frontend",
+    "build:kb": "npm run build:kb --workspace=backend"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,94 @@
+.history {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.head h2 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.head button {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  color: var(--text-3);
+}
+
+.head button:hover {
+  color: var(--danger);
+}
+
+.history ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history li button {
+  width: 100%;
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+}
+
+.history li button:hover,
+.history li button.active {
+  background: var(--surface-2);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 0.4rem;
+  flex-shrink: 0;
+}
+
+.danger { background: var(--danger); }
+.warn { background: var(--warn); }
+.ok { background: var(--ok); }
+.muted { background: var(--text-3); }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.text {
+  font-size: 0.85rem;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  font-size: 0.72rem;
+  color: var(--text-3);
+}
+
+.note {
+  font-size: 0.7rem;
+  color: var(--text-3);
+  margin-top: 0.4rem;
+}

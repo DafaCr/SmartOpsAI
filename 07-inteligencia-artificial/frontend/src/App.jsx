@@ -1,43 +1,26 @@
-import { lazy, Suspense } from 'react' 
+import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router'
 
 import { Header } from './components/Header.jsx'
-import { Footer } from './components/Footer.jsx'
-import { ProtectedRoute } from './components/ProtectedRoute.jsx'
 
-const HomePage = lazy(() => import('./pages/Home.jsx'))
-const SearchPage = lazy(() => import('./pages/Search.jsx'))
-const NotFoundPage = lazy(() => import('./pages/404.jsx'))
-const JobDetail = lazy(() => import('./pages/Detail.jsx'))
-const ProfilePage = lazy(() => import('./pages/ProfilePage.jsx'))
-const Login = lazy(() => import('./pages/Login.jsx'))
-const Register = lazy(() => import('./pages/Register.jsx'))
-const AnalizarPage = lazy(() => import('./pages/Analizar.jsx'))
+const AnalyzerPage = lazy(() => import('./pages/AnalyzerPage.jsx'))
+const KnowledgePage = lazy(() => import('./pages/KnowledgePage.jsx'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'))
 
-function App() {
+export default function App () {
   return (
     <>
       <Header />
-
-      <Suspense fallback={<div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>Cargando...</div>}>
+      <Suspense fallback={<p style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-3)' }}>Cargando…</p>}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/analizar" element={<AnalizarPage />} />
-          <Route path="/jobs/:jobId" element={<JobDetail />} />
-          <Route path="/profile" element={
-            <ProtectedRoute redirectTo="/login">
-              <ProfilePage />
-            </ProtectedRoute>
-          } />
-          <Route path="*" element={<NotFoundPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path='/' element={<AnalyzerPage />} />
+          <Route path='/conocimiento' element={<KnowledgePage />} />
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </Suspense>
-      <Footer />
+      <footer style={{ marginTop: 'auto', padding: '1.25rem 1rem', textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-3)', borderTop: '1px solid var(--border)' }}>
+        SmartOps AI · FRIOCHAP S.A.C. — La IA propone, el operador decide.
+      </footer>
     </>
   )
 }
-
-export default App

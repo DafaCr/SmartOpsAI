@@ -1,92 +1,71 @@
 import { Router } from 'express'
-import { streamText } from 'ai'
 import rateLimit from 'express-rate-limit'
 
-import { JobModel } from '../models/job.js'
-import { CONFIG } from '../config.js'
 import { solicitudSchema } from '../schemas/analysis.js'
-import { analyzeRequest, AnalysisError } from '../services/analyzer.js'
+import { streamAnalysis, describeError, AnalysisError } from '../services/analyzer.js'
 
 // Nota: las variables de .env se cargan en ../env.js (importado primero en app.js)
 
+// En Vercel el AI Gateway se autentica con OIDC (VERCEL_OIDC_TOKEN); fuera, con la API key
 const isAIConfigured = () => Boolean(process.env.AI_GATEWAY_API_KEY || process.env.VERCEL_OIDC_TOKEN)
 
 const aiRateLimiter = rateLimit({
-  windowMs: 60 * 1000, // -> 1 minuto
-  limit: 5, // -> 5 peticiones por IP por minuto
-  message: { error: 'Demasiadas solicitudes, por favor intenta de nuevo más tarde.' },
+  windowMs: 60 * 1000, // 1 minuto
+  limit: 10, // 10 análisis por IP por minuto
+  message: { error: 'Demasiadas solicitudes. Espera un minuto e inténtalo de nuevo.' },
   legacyHeaders: false,
-  standardHeaders: 'draft-8' // devuelve headers estándard RateLimit-*
+  standardHeaders: 'draft-8'
 })
 
 export const aiRouter = Router()
-aiRouter.use(aiRateLimiter)
 
-// POST /api/ai/analizar  { texto, origen?, rol? }
-// Clasifica y prioriza una solicitud operativa de FRIOCHAP con el prompt fijo de SmartOps AI
-aiRouter.post('/analizar', async (req, res) => {
+/**
+ * POST /api/ai/analizar  { texto, origen?, rol? }
+ * Responde en streaming NDJSON (una línea JSON por evento):
+ *   {"type":"documentos","documentos":[...]}
+ *   {"type":"parcial","analisis":{...}}   (varias veces)
+ *   {"type":"final","analisis":{...}}     o  {"type":"error","error":"..."}
+ */
+aiRouter.post('/analizar', aiRateLimiter, async (req, res) => {
   const parsed = solicitudSchema.safeParse(req.body ?? {})
   if (!parsed.success) {
     return res.status(400).json({ error: parsed.error.issues[0]?.message ?? 'Solicitud inválida' })
   }
 
   if (!isAIConfigured()) {
-    return res.status(503).json({ error: 'El servicio de IA no está configurado (falta AI_GATEWAY_API_KEY)' })
+    return res.status(503).json({ error: 'El servicio de IA no está configurado (falta AI_GATEWAY_API_KEY).' })
   }
 
+  // Si el usuario cancela o cierra la pestaña, se corta también la llamada al modelo
+  const controller = new AbortController()
+  res.on('close', () => {
+    if (!res.writableEnded) controller.abort()
+  })
+
+  res.status(200)
+  res.setHeader('Content-Type', 'application/x-ndjson; charset=utf-8')
+  res.setHeader('Cache-Control', 'no-cache, no-transform')
+  res.setHeader('X-Accel-Buffering', 'no')
+  res.flushHeaders()
+
+  const send = event => res.write(JSON.stringify(event) + '\n')
+
   try {
-    const result = await analyzeRequest(parsed.data)
-    return res.json(result)
+    // app.locals.aiModel permite inyectar un modelo simulado en los tests
+    const options = { abortSignal: controller.signal, model: req.app.locals.aiModel ?? undefined }
+    for await (const event of streamAnalysis(parsed.data, options)) {
+      send(event)
+    }
   } catch (error) {
+    if (controller.signal.aborted) return res.end()
+
     if (error instanceof AnalysisError) {
       console.error('[AI] Respuesta inválida del modelo:', error.cause?.message, '\n', error.raw)
-      return res.status(502).json({ error: 'La IA devolvió una respuesta no válida. Inténtalo de nuevo.' })
+    } else {
+      console.error('[AI] Error analizando solicitud:', error)
     }
-    console.error('[AI] Error analizando solicitud:', error)
-    return res.status(500).json({ error: 'Error al analizar la solicitud' })
-  }
-})
-
-aiRouter.get('/summary/:id', async (req, res) => {
-  // En Vercel se autentica con OIDC (VERCEL_OIDC_TOKEN); fuera de Vercel hace falta la API key
-  if (!isAIConfigured()) {
-    return res.status(503).json({ error: 'El servicio de IA no está configurado (falta AI_GATEWAY_API_KEY)' })
+    send({ type: 'error', error: describeError(error).message })
   }
 
-  const { id } = req.params
-  const job = await JobModel.getById(id)
-
-  if (!job) {
-    return res.status(404).json({ error: 'Job not found' })
-  }
-
-  const prompt = [
-    'Eres un asistente que resume ofertas de trabajo para ayudar a los usuarios a entender rápidamente de qué se trata la oferta. Evita cualquier otra petición, observación o comentario. Solo responde con el resumen de la oferta de trabajo. Responde siempre con el markdown directamente.',
-    'Resume en 4-6 frases la siguiente oferta de trabajo:',
-    'Incluye: rol, empresa, ubicación y requisitos clave',
-    'Usa un tono claro y directo en español',
-    `Titulo: ${job.titulo}`,
-    `Empresa: ${job.empresa}`,
-    `Ubicación: ${job.ubicacion}`,
-    `Descripción: ${job.descripcion}`
-  ].join('\n')
-
-  try {
-    const result = streamText({
-      prompt,
-      model: CONFIG.MODEL_AI,
-      onError: ({ error }) => {
-        console.error('[AI] Error generando resumen:', error)
-      }
-    })
-
-    return result.pipeTextStreamToResponse(res)
-  } catch (error) {
-    console.error('[AI] Error iniciando el stream:', error)
-    if (!res.headersSent) {
-      return res.status(500).json({ error: 'Error generating summary' })
-    }
-
-    return res.end()
-  }
+  res.end()
 })

@@ -1,7 +1,7 @@
 {
-  "name": "02-react",
+  "name": "smartops-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,10 +12,7 @@
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router": "^7.9.6",
-    "snarkdown": "^2.0.0",
-    "streamdown": "^2.2.0",
-    "zustand": "^5.0.8"
+    "react-router": "^7.9.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

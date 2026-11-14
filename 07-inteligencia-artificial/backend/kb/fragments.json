@@ -51,7 +51,7 @@
     "titulo": "Garantías y reclamos",
     "apartado": "Garantía de servicios",
     "acceso": "todos",
-    "texto": "Garantía de servicios. | Tipo de trabajo | Garantía de mano de obra | | Mantenimiento correctivo | 90 días sobre la reparación realizada | | Instalación nueva | 12 meses | | Mantenimiento preventivo | Sin garantía de falla; cubre la correcta ejecución de las actividades | La garantía de equipos y repuestos corresponde a la otorgada por el fabricante y se gestiona a través de FRIOCHAP."
+    "texto": "Garantía de servicios. Tipo de trabajo: Mantenimiento correctivo; Garantía de mano de obra: 90 días sobre la reparación realizada. Tipo de trabajo: Instalación nueva; Garantía de mano de obra: 12 meses. Tipo de trabajo: Mantenimiento preventivo; Garantía de mano de obra: Sin garantía de falla; cubre la correcta ejecución de las actividades. La garantía de equipos y repuestos corresponde a la otorgada por el fabricante y se gestiona a través de FRIOCHAP."
   },
   {
     "ref": "ADM-02 §2",
@@ -204,7 +204,7 @@
     "titulo": "Glosario técnico y operativo",
     "apartado": "Términos técnicos",
     "acceso": "todos",
-    "texto": "Términos técnicos. - **Burlete:** empaque de goma de la puerta de cámaras y vitrinas que asegura el cierre hermético. - **Cámara de conservación:** recinto refrigerado entre 0 °C y +5 °C. - **Cámara de congelación:** recinto a −18 °C o menos. - **Chiller:** equipo que enfría agua para climatizar varios ambientes mediante fan coils. - **Compresor:** componente que impulsa el refrigerante en el circuito. - **Condensador / unidad condensadora:** parte que expulsa el calor, normalmente ubicada en el exterior. - **Deshielo:** ciclo que elimina el hielo acumulado en el evaporador. - **Evaporador:** serpentín interior que absorbe el calor del ambiente. - **Fan coil:** unidad interior que recibe agua fría de un chiller. - **Presostato:** protección que detiene el equipo ante presión alta (HP) o baja (LP). - **Refrigerante:** fluido del circuito de refrigeración (R-410A, R-32, R-404A, R-290, R-717, etc.). - **Sonda:** sensor de temperatura conectado al controlador. - **Split:** equipo de aire acondicionado con unidad interior y exterior separadas. - **VRF:** sistema de volumen de refrigerante variable con varias unidades interiores."
+    "texto": "Términos técnicos. - Burlete: empaque de goma de la puerta de cámaras y vitrinas que asegura el cierre hermético. - Cámara de conservación: recinto refrigerado entre 0 °C y +5 °C. - Cámara de congelación: recinto a −18 °C o menos. - Chiller: equipo que enfría agua para climatizar varios ambientes mediante fan coils. - Compresor: componente que impulsa el refrigerante en el circuito. - Condensador / unidad condensadora: parte que expulsa el calor, normalmente ubicada en el exterior. - Deshielo: ciclo que elimina el hielo acumulado en el evaporador. - Evaporador: serpentín interior que absorbe el calor del ambiente. - Fan coil: unidad interior que recibe agua fría de un chiller. - Presostato: protección que detiene el equipo ante presión alta (HP) o baja (LP). - Refrigerante: fluido del circuito de refrigeración (R-410A, R-32, R-404A, R-290, R-717, etc.). - Sonda: sensor de temperatura conectado al controlador. - Split: equipo de aire acondicionado con unidad interior y exterior separadas. - VRF: sistema de volumen de refrigerante variable con varias unidades interiores."
   },
   {
     "ref": "GLO-01 §2",
@@ -213,7 +213,7 @@
     "titulo": "Glosario técnico y operativo",
     "apartado": "Términos operativos",
     "acceso": "todos",
-    "texto": "Términos operativos. - **Mesa de Operaciones:** equipo que recibe, registra y deriva solicitudes. - **Escalamiento:** comunicación inmediata de un caso a un responsable específico (REG-02). - **Primera respuesta:** primer contacto con el cliente después de registrar la solicitud. - **SSOMA:** Seguridad, Salud Ocupacional y Medio Ambiente. - **SPOT:** Sistema de Pago de Obligaciones Tributarias (detracciones). - **Contrato Estándar / Premium:** modalidades de contrato de mantenimiento (SRV-01 §2)."
+    "texto": "Términos operativos. - Mesa de Operaciones: equipo que recibe, registra y deriva solicitudes. - Escalamiento: comunicación inmediata de un caso a un responsable específico (REG-02). - Primera respuesta: primer contacto con el cliente después de registrar la solicitud. - SSOMA: Seguridad, Salud Ocupacional y Medio Ambiente. - SPOT: Sistema de Pago de Obligaciones Tributarias (detracciones). - Contrato Estándar / Premium: modalidades de contrato de mantenimiento (SRV-01 §2)."
   },
   {
     "ref": "MAN-01 §1",
@@ -222,7 +222,7 @@
     "titulo": "Plan de mantenimiento preventivo",
     "apartado": "Frecuencias recomendadas",
     "acceso": "operaciones",
-    "texto": "Frecuencias recomendadas. | Equipo | Uso | Frecuencia | | Split / cassette | Oficina o vivienda | Semestral | | Split / cassette | Comercio o uso continuo | Trimestral | | VRF y equipos de ductos | Edificios y comercios | Trimestral | | Chiller | Sistema central | Mensual | | Cámara de conservación | Comercial | Trimestral | | Cámara de congelación | Comercial e industrial | Mensual | | Vitrinas y congeladores | Comercio | Trimestral | | Máquina de hielo | Comercio | Trimestral, con limpieza sanitaria |"
+    "texto": "Frecuencias recomendadas. Equipo: Split / cassette; Uso: Oficina o vivienda; Frecuencia: Semestral. Equipo: Split / cassette; Uso: Comercio o uso continuo; Frecuencia: Trimestral. Equipo: VRF y equipos de ductos; Uso: Edificios y comercios; Frecuencia: Trimestral. Equipo: Chiller; Uso: Sistema central; Frecuencia: Mensual. Equipo: Cámara de conservación; Uso: Comercial; Frecuencia: Trimestral. Equipo: Cámara de congelación; Uso: Comercial e industrial; Frecuencia: Mensual. Equipo: Vitrinas y congeladores; Uso: Comercio; Frecuencia: Trimestral. Equipo: Máquina de hielo; Uso: Comercio; Frecuencia: Trimestral, con limpieza sanitaria."
   },
   {
     "ref": "MAN-01 §2",
@@ -267,7 +267,7 @@
     "titulo": "Política de atención y clasificación de solicitudes",
     "apartado": "Canales oficiales de recepción",
     "acceso": "todos",
-    "texto": "Canales oficiales de recepción. - **WhatsApp corporativo:** canal principal para incidencias y coordinación de visitas. - **Correo de operaciones:** solicitudes formales, cotizaciones, órdenes de compra y documentación. - **Central telefónica:** emergencias y clientes sin acceso a otros canales. Toda llamada se transcribe y registra. Ninguna solicitud se atiende sin registro previo en el sistema. Las solicitudes recibidas por canales personales de un colaborador deben reingresarse por la Mesa de Operaciones."
+    "texto": "Canales oficiales de recepción. - WhatsApp corporativo: canal principal para incidencias y coordinación de visitas. - Correo de operaciones: solicitudes formales, cotizaciones, órdenes de compra y documentación. - Central telefónica: emergencias y clientes sin acceso a otros canales. Toda llamada se transcribe y registra. Ninguna solicitud se atiende sin registro previo en el sistema. Las solicitudes recibidas por canales personales de un colaborador deben reingresarse por la Mesa de Operaciones."
   },
   {
     "ref": "POL-01 §3",
@@ -294,7 +294,7 @@
     "titulo": "Política de atención y clasificación de solicitudes",
     "apartado": "Categorías de solicitud",
     "acceso": "todos",
-    "texto": "Categorías de solicitud. Cada solicitud recibe una sola categoría, la que mejor describe la necesidad principal. | Categoría | Definición | Ejemplos | | Incidencia técnica | Falla, avería, alarma o funcionamiento anormal de un equipo instalado | Cámara que no enfría, split que gotea, alarma de alta temperatura, ruido anormal | | Solicitud de servicio o instalación | Pedido de un servicio planificado: instalación, mantenimiento preventivo, reubicación, visita de evaluación, cotización técnica | Instalar dos splits en oficina, programar mantenimiento trimestral, evaluar ampliación de cámara | | Consulta de información | Pregunta técnica o comercial que no reporta falla ni pide servicio concreto | ¿Qué refrigerante usa mi equipo?, ¿cada cuánto se limpia el filtro?, ¿atienden en provincias? | | Consulta administrativa | Facturación, pagos, comprobantes, contratos, garantías, reclamos | Pedir copia de factura, consultar estado de pago, solicitar garantía | | Información insuficiente | El mensaje no permite identificar la necesidad o el equipo | «Hola, necesito ayuda», «el equipo está raro» sin más datos |"
+    "texto": "Categorías de solicitud. Cada solicitud recibe una sola categoría, la que mejor describe la necesidad principal. Categoría: Incidencia técnica; Definición: Falla, avería, alarma o funcionamiento anormal de un equipo instalado; Ejemplos: Cámara que no enfría, split que gotea, alarma de alta temperatura, ruido anormal. Categoría: Solicitud de servicio o instalación; Definición: Pedido de un servicio planificado: instalación, mantenimiento preventivo, reubicación, visita de evaluación, cotización técnica; Ejemplos: Instalar dos splits en oficina, programar mantenimiento trimestral, evaluar ampliación de cámara. Categoría: Consulta de información; Definición: Pregunta técnica o comercial que no reporta falla ni pide servicio concreto; Ejemplos: ¿Qué refrigerante usa mi equipo?, ¿cada cuánto se limpia el filtro?, ¿atienden en provincias?. Categoría: Consulta administrativa; Definición: Facturación, pagos, comprobantes, contratos, garantías, reclamos; Ejemplos: Pedir copia de factura, consultar estado de pago, solicitar garantía. Categoría: Información insuficiente; Definición: El mensaje no permite identificar la necesidad o el equipo; Ejemplos: «Hola, necesito ayuda», «el equipo está raro» sin más datos."
   },
   {
     "ref": "POL-01 §6",
@@ -303,7 +303,7 @@
     "titulo": "Política de atención y clasificación de solicitudes",
     "apartado": "Reglas de desempate entre categorías",
     "acceso": "todos",
-    "texto": "Reglas de desempate entre categorías. 1. Si el mensaje reporta una falla **y** pide un servicio, prevalece **Incidencia técnica**. 2. Si un reclamo se refiere a una falla que persiste, la categoría es **Incidencia técnica** y el caso se deriva también por reclamo (REG-02). 3. Una solicitud de garantía por falla de un equipo instalado por FRIOCHAP es **Incidencia técnica**; una consulta sobre condiciones de garantía sin falla es **Consulta administrativa**. 4. Un pedido de cotización de equipos o instalación es **Solicitud de servicio o instalación**, no consulta administrativa. 5. Si el mensaje contiene varias solicitudes independientes, se clasifica la de mayor impacto y se recomienda registrar las demás por separado. 6. Si el equipo, la sede o el síntoma no pueden identificarse, se usa **Información insuficiente** y se solicitan los datos de TEC-03."
+    "texto": "Reglas de desempate entre categorías. 1. Si el mensaje reporta una falla y pide un servicio, prevalece Incidencia técnica. 2. Si un reclamo se refiere a una falla que persiste, la categoría es Incidencia técnica y el caso se deriva también por reclamo (REG-02). 3. Una solicitud de garantía por falla de un equipo instalado por FRIOCHAP es Incidencia técnica; una consulta sobre condiciones de garantía sin falla es Consulta administrativa. 4. Un pedido de cotización de equipos o instalación es Solicitud de servicio o instalación, no consulta administrativa. 5. Si el mensaje contiene varias solicitudes independientes, se clasifica la de mayor impacto y se recomienda registrar las demás por separado. 6. Si el equipo, la sede o el síntoma no pueden identificarse, se usa Información insuficiente y se solicitan los datos de TEC-03."
   },
   {
     "ref": "POL-01 §7",
@@ -312,7 +312,7 @@
     "titulo": "Política de atención y clasificación de solicitudes",
     "apartado": "Flujo de atención",
     "acceso": "todos",
-    "texto": "Flujo de atención. 1. **Recepción:** el operador registra el texto original, canal y fecha. 2. **Análisis asistido:** SmartOps AI propone categoría, prioridad, resumen, recomendación e información faltante. 3. **Validación:** el operador aprueba, corrige o rechaza la propuesta. 4. **Derivación:** el operador comunica el caso al responsable indicado en la sección 8. 5. **Seguimiento:** el caso permanece abierto hasta que el responsable registre su atención."
+    "texto": "Flujo de atención. 1. Recepción: el operador registra el texto original, canal y fecha. 2. Análisis asistido: SmartOps AI propone categoría, prioridad, resumen, recomendación e información faltante. 3. Validación: el operador aprueba, corrige o rechaza la propuesta. 4. Derivación: el operador comunica el caso al responsable indicado en la sección 8. 5. Seguimiento: el caso permanece abierto hasta que el responsable registre su atención."
   },
   {
     "ref": "POL-01 §8",
@@ -321,7 +321,7 @@
     "titulo": "Política de atención y clasificación de solicitudes",
     "apartado": "Responsables por tipo de caso",
     "acceso": "todos",
-    "texto": "Responsables por tipo de caso. | Tipo de caso | Responsable principal | | Incidencia en refrigeración (cámaras, vitrinas, congeladores, máquinas de hielo) | Supervisor Técnico de Refrigeración | | Incidencia en climatización (splits, VRF, ductos, chillers, extracción) | Supervisor Técnico de Climatización | | Instalaciones, proyectos y visitas de evaluación | Jefe de Operaciones | | Cotizaciones y precios | Área Comercial | | Facturación, pagos, crédito | Administración y Finanzas | | Garantías | Supervisor técnico del rubro + Administración | | Reclamos formales y temas legales | Gerencia General | | Riesgo para personas o instalaciones | Responsable SSOMA + Jefe de Operaciones |"
+    "texto": "Responsables por tipo de caso. Tipo de caso: Incidencia en refrigeración (cámaras, vitrinas, congeladores, máquinas de hielo); Responsable principal: Supervisor Técnico de Refrigeración. Tipo de caso: Incidencia en climatización (splits, VRF, ductos, chillers, extracción); Responsable principal: Supervisor Técnico de Climatización. Tipo de caso: Instalaciones, proyectos y visitas de evaluación; Responsable principal: Jefe de Operaciones. Tipo de caso: Cotizaciones y precios; Responsable principal: Área Comercial. Tipo de caso: Facturación, pagos, crédito; Responsable principal: Administración y Finanzas. Tipo de caso: Garantías; Responsable principal: Supervisor técnico del rubro + Administración. Tipo de caso: Reclamos formales y temas legales; Responsable principal: Gerencia General. Tipo de caso: Riesgo para personas o instalaciones; Responsable principal: Responsable SSOMA + Jefe de Operaciones."
   },
   {
     "ref": "POL-01 §9",
@@ -339,7 +339,7 @@
     "titulo": "Matriz de priorización",
     "apartado": "Principio",
     "acceso": "todos",
-    "texto": "Principio. La prioridad depende del **impacto** sobre personas, producto y operación del cliente, y de la **urgencia** expresada con hechos. El tipo de contrato no cambia la prioridad; solo define el tiempo objetivo de atención (sección 5)."
+    "texto": "Principio. La prioridad depende del impacto sobre personas, producto y operación del cliente, y de la urgencia expresada con hechos. El tipo de contrato no cambia la prioridad; solo define el tiempo objetivo de atención (sección 5)."
   },
   {
     "ref": "REG-01 §2",
@@ -348,7 +348,7 @@
     "titulo": "Matriz de priorización",
     "apartado": "Niveles de impacto",
     "acceso": "todos",
-    "texto": "Niveles de impacto. - **Impacto alto:** riesgo para personas; equipo detenido que conserva producto perecible, medicamentos o vacunas; temperatura fuera de rango; operación crítica del cliente paralizada (sala de servidores, quirófano, cámara principal). - **Impacto medio:** equipo funciona con rendimiento reducido; falla en un equipo con respaldo disponible; afectación al confort de un área de trabajo. - **Impacto bajo:** sin efecto en la operación; consultas, mantenimientos planificados, temas administrativos."
+    "texto": "Niveles de impacto. - Impacto alto: riesgo para personas; equipo detenido que conserva producto perecible, medicamentos o vacunas; temperatura fuera de rango; operación crítica del cliente paralizada (sala de servidores, quirófano, cámara principal). - Impacto medio: equipo funciona con rendimiento reducido; falla en un equipo con respaldo disponible; afectación al confort de un área de trabajo. - Impacto bajo: sin efecto en la operación; consultas, mantenimientos planificados, temas administrativos."
   },
   {
     "ref": "REG-01 §3",
@@ -357,7 +357,7 @@
     "titulo": "Matriz de priorización",
     "apartado": "Reglas de prioridad",
     "acceso": "todos",
-    "texto": "Reglas de prioridad. ### Prioridad Alta Se asigna si se cumple al menos una condición: 1. Cualquier situación de SEG-01 (fuga, humo, olor a quemado, chispas, descarga eléctrica, heridos). 2. Equipo de refrigeración que dejó de enfriar o con alarma de alta temperatura y producto almacenado. 3. Cámara de conservación sobre +8 °C o cámara de congelación sobre −12 °C. 4. Climatización detenida en ambientes críticos: sala de servidores, laboratorio, área clínica o sala de producción con control de temperatura. 5. El cliente indica pérdida de producto en curso o atención requerida el mismo día con impacto descrito. ### Prioridad Media 1. Equipo con funcionamiento parcial: enfría poco, ciclos irregulares, escarcha excesiva, ruido anormal sin olor ni humo. 2. Goteo de agua de unidades de aire acondicionado sin riesgo eléctrico. 3. Falla de un equipo de confort (oficina, tienda) sin área crítica. 4. Servicio o instalación con fecha comprometida dentro de los próximos 5 días hábiles. 5. Garantía por falla que no detiene la operación. ### Prioridad Baja 1. Consultas de información técnica o comercial. 2. Consultas administrativas sin vencimiento inmediato. 3. Mantenimiento preventivo, cotizaciones e instalaciones sin fecha cercana. 4. Solicitudes de documentación (certificados, informes, copias)."
+    "texto": "Reglas de prioridad. Prioridad Alta: Se asigna si se cumple al menos una condición: 1. Cualquier situación de SEG-01 (fuga, humo, olor a quemado, chispas, descarga eléctrica, heridos). 2. Equipo de refrigeración que dejó de enfriar o con alarma de alta temperatura y producto almacenado. 3. Cámara de conservación sobre +8 °C o cámara de congelación sobre −12 °C. 4. Climatización detenida en ambientes críticos: sala de servidores, laboratorio, área clínica o sala de producción con control de temperatura. 5. El cliente indica pérdida de producto en curso o atención requerida el mismo día con impacto descrito. Prioridad Media: 1. Equipo con funcionamiento parcial: enfría poco, ciclos irregulares, escarcha excesiva, ruido anormal sin olor ni humo. 2. Goteo de agua de unidades de aire acondicionado sin riesgo eléctrico. 3. Falla de un equipo de confort (oficina, tienda) sin área crítica. 4. Servicio o instalación con fecha comprometida dentro de los próximos 5 días hábiles. 5. Garantía por falla que no detiene la operación. Prioridad Baja: 1. Consultas de información técnica o comercial. 2. Consultas administrativas sin vencimiento inmediato. 3. Mantenimiento preventivo, cotizaciones e instalaciones sin fecha cercana. 4. Solicitudes de documentación (certificados, informes, copias)."
   },
   {
     "ref": "REG-01 §4",
@@ -366,7 +366,7 @@
     "titulo": "Matriz de priorización",
     "apartado": "Reglas de ajuste",
     "acceso": "todos",
-    "texto": "Reglas de ajuste. - La palabra «urgente» sin hechos que demuestren impacto **no** eleva la prioridad; se asigna según los hechos y se piden datos. - Si falta información para decidir entre dos niveles, se elige el **más alto** y se marca confianza Media o Baja. - Un reclamo no eleva por sí mismo la prioridad técnica; se deriva según REG-02. - Una incidencia reiterada (segunda falla del mismo equipo en 30 días) sube un nivel, hasta Alta."
+    "texto": "Reglas de ajuste. - La palabra «urgente» sin hechos que demuestren impacto no eleva la prioridad; se asigna según los hechos y se piden datos. - Si falta información para decidir entre dos niveles, se elige el más alto y se marca confianza Media o Baja. - Un reclamo no eleva por sí mismo la prioridad técnica; se deriva según REG-02. - Una incidencia reiterada (segunda falla del mismo equipo en 30 días) sube un nivel, hasta Alta."
   },
   {
     "ref": "REG-01 §5",
@@ -375,7 +375,7 @@
     "titulo": "Matriz de priorización",
     "apartado": "Tiempos objetivo internos",
     "acceso": "todos",
-    "texto": "Tiempos objetivo internos. | Prioridad | Primera respuesta al cliente | Contrato Premium | Contrato Estándar | Sin contrato | | Alta | 30 min | Visita en 4 h (24/7) | Visita en 8 h hábiles | Según disponibilidad confirmada por Operaciones | | Media | 4 h hábiles | Visita en 24 h | Visita en 48 h hábiles | Programación en 3 a 5 días hábiles | | Baja | 1 día hábil | Programación acordada | Programación acordada | Programación acordada | Estos tiempos son metas internas de la Mesa de Operaciones. **No se comunican al cliente como compromiso**; el plazo real lo confirma el supervisor responsable."
+    "texto": "Tiempos objetivo internos. Prioridad: Alta; Primera respuesta al cliente: 30 min; Contrato Premium: Visita en 4 h (24/7); Contrato Estándar: Visita en 8 h hábiles; Sin contrato: Según disponibilidad confirmada por Operaciones. Prioridad: Media; Primera respuesta al cliente: 4 h hábiles; Contrato Premium: Visita en 24 h; Contrato Estándar: Visita en 48 h hábiles; Sin contrato: Programación en 3 a 5 días hábiles. Prioridad: Baja; Primera respuesta al cliente: 1 día hábil; Contrato Premium: Programación acordada; Contrato Estándar: Programación acordada; Sin contrato: Programación acordada. Estos tiempos son metas internas de la Mesa de Operaciones. No se comunican al cliente como compromiso; el plazo real lo confirma el supervisor responsable."
   },
   {
     "ref": "REG-01 §6",
@@ -384,7 +384,7 @@
     "titulo": "Matriz de priorización",
     "apartado": "Ejemplos de referencia",
     "acceso": "todos",
-    "texto": "Ejemplos de referencia. | Solicitud | Prioridad | Motivo | | «La cámara de carnes marca 12 °C y suena la alarma» | Alta | Conservación fuera de rango con producto | | «Huele a quemado en el aire de la sala» | Alta | Riesgo eléctrico (SEG-01) | | «El split de gerencia enfría poco desde ayer» | Media | Rendimiento reducido en área de confort | | «Cae agua del aire del pasillo» | Media | Goteo sin riesgo eléctrico descrito | | «Queremos instalar 3 equipos el próximo mes» | Baja | Servicio sin fecha cercana | | «¿Me reenvían la factura de octubre?» | Baja | Consulta administrativa |"
+    "texto": "Ejemplos de referencia. Solicitud: «La cámara de carnes marca 12 °C y suena la alarma»; Prioridad: Alta; Motivo: Conservación fuera de rango con producto. Solicitud: «Huele a quemado en el aire de la sala»; Prioridad: Alta; Motivo: Riesgo eléctrico (SEG-01). Solicitud: «El split de gerencia enfría poco desde ayer»; Prioridad: Media; Motivo: Rendimiento reducido en área de confort. Solicitud: «Cae agua del aire del pasillo»; Prioridad: Media; Motivo: Goteo sin riesgo eléctrico descrito. Solicitud: «Queremos instalar 3 equipos el próximo mes»; Prioridad: Baja; Motivo: Servicio sin fecha cercana. Solicitud: «¿Me reenvían la factura de octubre?»; Prioridad: Baja; Motivo: Consulta administrativa."
   },
   {
     "ref": "REG-02 §1",
@@ -393,7 +393,7 @@
     "titulo": "Criterios de derivación y escalamiento",
     "apartado": "Principio",
     "acceso": "todos",
-    "texto": "Principio. Todo análisis de SmartOps AI es revisado por el operador. Además, ciertos casos requieren que el operador **escale de inmediato** a un responsable específico antes de responder al cliente."
+    "texto": "Principio. Todo análisis de SmartOps AI es revisado por el operador. Además, ciertos casos requieren que el operador escale de inmediato a un responsable específico antes de responder al cliente."
   },
   {
     "ref": "REG-02 §2",
@@ -402,7 +402,7 @@
     "titulo": "Criterios de derivación y escalamiento",
     "apartado": "Casos que se escalan de inmediato",
     "acceso": "todos",
-    "texto": "Casos que se escalan de inmediato. | Situación | Escalar a | Acción inicial del operador | | Riesgo para personas: fuga de gas o refrigerante, humo, olor a quemado, chispas, descarga eléctrica, heridos | Responsable SSOMA + Jefe de Operaciones | Transmitir indicaciones de SEG-01 §2 y confirmar que las personas están a salvo | | Producto perecible, medicamentos o vacunas en riesgo | Supervisor Técnico de Refrigeración | Confirmar temperatura actual y si existe cámara de respaldo | | Ambiente crítico sin climatización (servidores, área clínica) | Supervisor Técnico de Climatización | Confirmar temperatura del ambiente y medidas temporales del cliente | | Reclamo formal, mención del Libro de Reclamaciones, Indecopi, abogados o acciones legales | Gerencia General | Registrar textualmente y no emitir opinión sobre responsabilidad | | Cliente molesto, amenaza con publicar en redes o cancelar contrato | Jefe de Operaciones | Acusar recibo con cortesía y confirmar que un responsable lo contactará | | Disputa de facturación, cobro indebido o reembolso | Administración y Finanzas | Solicitar número de comprobante | | Garantía | Supervisor técnico del rubro + Administración | Solicitar comprobante y fecha de instalación o servicio (ADM-02) |"
+    "texto": "Casos que se escalan de inmediato. Situación: Riesgo para personas: fuga de gas o refrigerante, humo, olor a quemado, chispas, descarga eléctrica, heridos; Escalar a: Responsable SSOMA + Jefe de Operaciones; Acción inicial del operador: Transmitir indicaciones de SEG-01 §2 y confirmar que las personas están a salvo. Situación: Producto perecible, medicamentos o vacunas en riesgo; Escalar a: Supervisor Técnico de Refrigeración; Acción inicial del operador: Confirmar temperatura actual y si existe cámara de respaldo. Situación: Ambiente crítico sin climatización (servidores, área clínica); Escalar a: Supervisor Técnico de Climatización; Acción inicial del operador: Confirmar temperatura del ambiente y medidas temporales del cliente. Situación: Reclamo formal, mención del Libro de Reclamaciones, Indecopi, abogados o acciones legales; Escalar a: Gerencia General; Acción inicial del operador: Registrar textualmente y no emitir opinión sobre responsabilidad. Situación: Cliente molesto, amenaza con publicar en redes o cancelar contrato; Escalar a: Jefe de Operaciones; Acción inicial del operador: Acusar recibo con cortesía y confirmar que un responsable lo contactará. Situación: Disputa de facturación, cobro indebido o reembolso; Escalar a: Administración y Finanzas; Acción inicial del operador: Solicitar número de comprobante. Situación: Garantía; Escalar a: Supervisor técnico del rubro + Administración; Acción inicial del operador: Solicitar comprobante y fecha de instalación o servicio (ADM-02)."
   },
   {
     "ref": "REG-02 §3",
@@ -447,7 +447,7 @@
     "titulo": "Protocolo de seguridad y emergencias",
     "apartado": "Indicaciones iniciales que el operador transmite",
     "acceso": "todos",
-    "texto": "Indicaciones iniciales que el operador transmite. Estas son las únicas indicaciones que se dan al cliente antes de la llegada del personal técnico: 1. Alejar a las personas del área y ventilarla si es seguro hacerlo. 2. No manipular el equipo, tuberías, válvulas ni tableros. 3. No encender ni apagar interruptores en la zona si hay olor a gas. 4. Si hay humo, fuego, heridos o personas afectadas, llamar de inmediato a los servicios de emergencia: **116 Bomberos**, **106 SAMU**, **105 Policía**. 5. Si es seguro y el cliente conoce la ubicación, cortar la energía del equipo desde el interruptor general fuera del área afectada."
+    "texto": "Indicaciones iniciales que el operador transmite. Estas son las únicas indicaciones que se dan al cliente antes de la llegada del personal técnico: 1. Alejar a las personas del área y ventilarla si es seguro hacerlo. 2. No manipular el equipo, tuberías, válvulas ni tableros. 3. No encender ni apagar interruptores en la zona si hay olor a gas. 4. Si hay humo, fuego, heridos o personas afectadas, llamar de inmediato a los servicios de emergencia: 116 Bomberos, 106 SAMU, 105 Policía. 5. Si es seguro y el cliente conoce la ubicación, cortar la energía del equipo desde el interruptor general fuera del área afectada."
   },
   {
     "ref": "SEG-01 §3",
@@ -456,7 +456,7 @@
     "titulo": "Protocolo de seguridad y emergencias",
     "apartado": "Refrigerantes y riesgos asociados",
     "acceso": "todos",
-    "texto": "Refrigerantes y riesgos asociados. | Refrigerante | Uso frecuente | Riesgo principal | | R-410A, R-32 | Aire acondicionado split y VRF | R-32 levemente inflamable; desplaza oxígeno en espacios cerrados | | R-404A, R-134a, R-507 | Refrigeración comercial | Desplaza oxígeno en espacios cerrados; quemaduras por frío | | R-290 (propano) | Vitrinas y equipos compactos recientes | Altamente inflamable | | R-717 (amoníaco) | Refrigeración industrial | Tóxico y corrosivo; requiere evacuación | | R-744 (CO₂) | Refrigeración comercial e industrial | Alta presión; asfixiante en espacios cerrados |"
+    "texto": "Refrigerantes y riesgos asociados. Refrigerante: R-410A, R-32; Uso frecuente: Aire acondicionado split y VRF; Riesgo principal: R-32 levemente inflamable; desplaza oxígeno en espacios cerrados. Refrigerante: R-404A, R-134a, R-507; Uso frecuente: Refrigeración comercial; Riesgo principal: Desplaza oxígeno en espacios cerrados; quemaduras por frío. Refrigerante: R-290 (propano); Uso frecuente: Vitrinas y equipos compactos recientes; Riesgo principal: Altamente inflamable. Refrigerante: R-717 (amoníaco); Uso frecuente: Refrigeración industrial; Riesgo principal: Tóxico y corrosivo; requiere evacuación. Refrigerante: R-744 (CO₂); Uso frecuente: Refrigeración comercial e industrial; Riesgo principal: Alta presión; asfixiante en espacios cerrados."
   },
   {
     "ref": "SEG-01 §4",
@@ -483,7 +483,7 @@
     "titulo": "Catálogo de servicios",
     "apartado": "Servicios ofrecidos",
     "acceso": "todos",
-    "texto": "Servicios ofrecidos. | Código | Servicio | Descripción | Requiere cotización | | S-01 | Mantenimiento preventivo | Limpieza, revisión y ajuste programado según MAN-01 | Sí, salvo clientes con contrato | | S-02 | Mantenimiento correctivo | Diagnóstico y reparación de fallas | Sí, después del diagnóstico | | S-03 | Visita técnica de evaluación | Inspección y diagnóstico en sitio | Tarifa de visita; se descuenta si se aprueba el servicio | | S-04 | Instalación de aire acondicionado | Suministro e instalación de splits, cassettes, VRF y ductos | Sí | | S-05 | Instalación de refrigeración | Cámaras frigoríficas, vitrinas y unidades condensadoras | Sí | | S-06 | Reubicación o desinstalación | Traslado de equipos existentes | Sí | | S-07 | Proyectos electromecánicos | Ingeniería, ductería, tableros y obras asociadas | Sí, con visita previa | | S-08 | Contrato de mantenimiento | Servicio recurrente Estándar o Premium | Sí |"
+    "texto": "Servicios ofrecidos. Código: S-01; Servicio: Mantenimiento preventivo; Descripción: Limpieza, revisión y ajuste programado según MAN-01; Requiere cotización: Sí, salvo clientes con contrato. Código: S-02; Servicio: Mantenimiento correctivo; Descripción: Diagnóstico y reparación de fallas; Requiere cotización: Sí, después del diagnóstico. Código: S-03; Servicio: Visita técnica de evaluación; Descripción: Inspección y diagnóstico en sitio; Requiere cotización: Tarifa de visita; se descuenta si se aprueba el servicio. Código: S-04; Servicio: Instalación de aire acondicionado; Descripción: Suministro e instalación de splits, cassettes, VRF y ductos; Requiere cotización: Sí. Código: S-05; Servicio: Instalación de refrigeración; Descripción: Cámaras frigoríficas, vitrinas y unidades condensadoras; Requiere cotización: Sí. Código: S-06; Servicio: Reubicación o desinstalación; Descripción: Traslado de equipos existentes; Requiere cotización: Sí. Código: S-07; Servicio: Proyectos electromecánicos; Descripción: Ingeniería, ductería, tableros y obras asociadas; Requiere cotización: Sí, con visita previa. Código: S-08; Servicio: Contrato de mantenimiento; Descripción: Servicio recurrente Estándar o Premium; Requiere cotización: Sí."
   },
   {
     "ref": "SRV-01 §2",
@@ -492,7 +492,7 @@
     "titulo": "Catálogo de servicios",
     "apartado": "Tipos de contrato",
     "acceso": "todos",
-    "texto": "Tipos de contrato. - **Contrato Estándar:** mantenimiento preventivo programado y atención de incidencias en horario regular. - **Contrato Premium:** incluye lo anterior más guardia de emergencias 24/7 y tiempos objetivo reducidos (REG-01 §5). - **Sin contrato:** servicios por evento, sujetos a disponibilidad y cotización."
+    "texto": "Tipos de contrato. - Contrato Estándar: mantenimiento preventivo programado y atención de incidencias en horario regular. - Contrato Premium: incluye lo anterior más guardia de emergencias 24/7 y tiempos objetivo reducidos (REG-01 §5). - Sin contrato: servicios por evento, sujetos a disponibilidad y cotización."
   },
   {
     "ref": "SRV-01 §3",
@@ -528,7 +528,7 @@
     "titulo": "Guía de diagnóstico inicial — refrigeración comercial",
     "apartado": "Alcance",
     "acceso": "operaciones",
-    "texto": "Alcance. Cámaras frigoríficas de conservación y congelación, vitrinas, congeladores horizontales, conservadoras y máquinas de hielo. Esta guía orienta el diagnóstico **remoto inicial** del operador; el diagnóstico definitivo lo realiza el técnico en sitio."
+    "texto": "Alcance. Cámaras frigoríficas de conservación y congelación, vitrinas, congeladores horizontales, conservadoras y máquinas de hielo. Esta guía orienta el diagnóstico remoto inicial del operador; el diagnóstico definitivo lo realiza el técnico en sitio."
   },
   {
     "ref": "TEC-01 §2",
@@ -546,7 +546,7 @@
     "titulo": "Guía de diagnóstico inicial — refrigeración comercial",
     "apartado": "Verificaciones seguras que puede hacer el cliente",
     "acceso": "operaciones",
-    "texto": "Verificaciones seguras que puede hacer el cliente. 1. Confirmar que el equipo tiene energía: display encendido, luces del equipo. 2. Verificar que la puerta cierra bien y que el burlete no está roto. 3. Confirmar que no se cargó producto caliente o en exceso recientemente. 4. Verificar que la unidad condensadora exterior no está obstruida por cajas o basura. 5. Tomar foto del display y del código de alarma. 6. Observar si el evaporador interior tiene bloque de hielo. El cliente **no** debe abrir tableros, mover válvulas ni manipular tuberías (SEG-01 §4)."
+    "texto": "Verificaciones seguras que puede hacer el cliente. 1. Confirmar que el equipo tiene energía: display encendido, luces del equipo. 2. Verificar que la puerta cierra bien y que el burlete no está roto. 3. Confirmar que no se cargó producto caliente o en exceso recientemente. 4. Verificar que la unidad condensadora exterior no está obstruida por cajas o basura. 5. Tomar foto del display y del código de alarma. 6. Observar si el evaporador interior tiene bloque de hielo. El cliente no debe abrir tableros, mover válvulas ni manipular tuberías (SEG-01 §4)."
   },
   {
     "ref": "TEC-01 §4",
@@ -555,7 +555,7 @@
     "titulo": "Guía de diagnóstico inicial — refrigeración comercial",
     "apartado": "Síntomas frecuentes",
     "acceso": "operaciones",
-    "texto": "Síntomas frecuentes. ### 4.1 No enfría o temperatura alta - Causas probables: falta de energía o disparo de protección, compresor detenido, condensador sucio u obstruido, falta de refrigerante por fuga, ventilador del evaporador detenido, evaporador congelado. - Recomendación: aplicar verificaciones §3; si hay producto, prioridad Alta y escalamiento a Supervisor Técnico de Refrigeración (REG-02); sugerir al cliente trasladar producto a cámara de respaldo si dispone de ella. ### 4.2 Exceso de hielo o escarcha en el evaporador - Causas probables: deshielo que no funciona, puerta mal cerrada, burlete dañado, humedad alta en la cámara. - Recomendación: verificar cierre de puerta; programar visita técnica. Prioridad Media salvo que la temperatura esté fuera de rango. ### 4.3 Ruido anormal o vibración - Causas probables: ventilador desbalanceado, soporte suelto, compresor con desgaste. - Recomendación: si no hay olor a quemado ni humo, prioridad Media; si lo hay, aplicar SEG-01. ### 4.4 Agua en el piso de la cámara - Causas probables: drenaje de deshielo obstruido, resistencia de drenaje dañada. - Recomendación: señalizar piso resbaladizo; visita técnica, prioridad Media. ### 4.5 Equipo enciende y se apaga continuamente - Causas probables: sonda defectuosa, presostato, falta de refrigerante, condensador sucio. - Recomendación: registrar frecuencia de los ciclos y código; visita técnica, prioridad Media o Alta según temperatura."
+    "texto": "Síntomas frecuentes. 4.1 No enfría o temperatura alta: - Causas probables: falta de energía o disparo de protección, compresor detenido, condensador sucio u obstruido, falta de refrigerante por fuga, ventilador del evaporador detenido, evaporador congelado. - Recomendación: aplicar verificaciones §3; si hay producto, prioridad Alta y escalamiento a Supervisor Técnico de Refrigeración (REG-02); sugerir al cliente trasladar producto a cámara de respaldo si dispone de ella. 4.2 Exceso de hielo o escarcha en el evaporador: - Causas probables: deshielo que no funciona, puerta mal cerrada, burlete dañado, humedad alta en la cámara. - Recomendación: verificar cierre de puerta; programar visita técnica. Prioridad Media salvo que la temperatura esté fuera de rango. 4.3 Ruido anormal o vibración: - Causas probables: ventilador desbalanceado, soporte suelto, compresor con desgaste. - Recomendación: si no hay olor a quemado ni humo, prioridad Media; si lo hay, aplicar SEG-01. 4.4 Agua en el piso de la cámara: - Causas probables: drenaje de deshielo obstruido, resistencia de drenaje dañada. - Recomendación: señalizar piso resbaladizo; visita técnica, prioridad Media. 4.5 Equipo enciende y se apaga continuamente: - Causas probables: sonda defectuosa, presostato, falta de refrigerante, condensador sucio. - Recomendación: registrar frecuencia de los ciclos y código; visita técnica, prioridad Media o Alta según temperatura."
   },
   {
     "ref": "TEC-01 §5",
@@ -564,7 +564,7 @@
     "titulo": "Guía de diagnóstico inicial — refrigeración comercial",
     "apartado": "Códigos de alarma de referencia",
     "acceso": "operaciones",
-    "texto": "Códigos de alarma de referencia. Códigos habituales en controladores digitales instalados por FRIOCHAP. El significado exacto debe confirmarse con la marca y modelo del controlador. | Código | Significado habitual | Prioridad orientativa | | HA / HI | Alta temperatura en cámara | Alta | | LA / LO | Baja temperatura en cámara | Media (Alta si congela producto refrigerado) | | P1 / E1 | Falla de sonda de ambiente | Media | | P2 / E2 | Falla de sonda de evaporador | Media | | dA / dor | Puerta abierta por tiempo prolongado | Media | | HP | Alta presión | Alta | | LP | Baja presión (posible fuga) | Alta | | EE | Error de memoria del controlador | Media | Si el código no figura en esta tabla, se solicita foto del display y marca/modelo del controlador, y se marca para revisión técnica (REG-02 §3)."
+    "texto": "Códigos de alarma de referencia. Códigos habituales en controladores digitales instalados por FRIOCHAP. El significado exacto debe confirmarse con la marca y modelo del controlador. Código: HA / HI; Significado habitual: Alta temperatura en cámara; Prioridad orientativa: Alta. Código: LA / LO; Significado habitual: Baja temperatura en cámara; Prioridad orientativa: Media (Alta si congela producto refrigerado). Código: P1 / E1; Significado habitual: Falla de sonda de ambiente; Prioridad orientativa: Media. Código: P2 / E2; Significado habitual: Falla de sonda de evaporador; Prioridad orientativa: Media. Código: dA / dor; Significado habitual: Puerta abierta por tiempo prolongado; Prioridad orientativa: Media. Código: HP; Significado habitual: Alta presión; Prioridad orientativa: Alta. Código: LP; Significado habitual: Baja presión (posible fuga); Prioridad orientativa: Alta. Código: EE; Significado habitual: Error de memoria del controlador; Prioridad orientativa: Media. Si el código no figura en esta tabla, se solicita foto del display y marca/modelo del controlador, y se marca para revisión técnica (REG-02 §3)."
   },
   {
     "ref": "TEC-02 §1",
@@ -573,7 +573,7 @@
     "titulo": "Guía de diagnóstico inicial — aire acondicionado",
     "apartado": "Alcance",
     "acceso": "operaciones",
-    "texto": "Alcance. Equipos split de pared, piso-techo y cassette; sistemas VRF; equipos de ductos (fan coil y unidades paquete); chillers; extractores e inyectores de aire. Orienta el diagnóstico **remoto inicial**."
+    "texto": "Alcance. Equipos split de pared, piso-techo y cassette; sistemas VRF; equipos de ductos (fan coil y unidades paquete); chillers; extractores e inyectores de aire. Orienta el diagnóstico remoto inicial."
   },
   {
     "ref": "TEC-02 §2",
@@ -591,7 +591,7 @@
     "titulo": "Guía de diagnóstico inicial — aire acondicionado",
     "apartado": "Síntomas frecuentes",
     "acceso": "operaciones",
-    "texto": "Síntomas frecuentes. ### 3.1 No enfría o enfría poco - Causas probables: filtro sucio, modo incorrecto, unidad exterior sucia u obstruida, falta de refrigerante, capacidad insuficiente para el ambiente. - Recomendación: aplicar §2; si persiste, visita técnica. Prioridad Media; Alta si es un ambiente crítico (REG-01 §3). ### 3.2 Gotea agua por la unidad interior - Causas probables: drenaje obstruido, bandeja rajada, equipo desnivelado, filtro muy sucio. - Recomendación: apagar el equipo si el agua cae sobre equipos eléctricos y aplicar SEG-01; en otro caso, visita técnica con prioridad Media. ### 3.3 No enciende - Causas probables: pilas del control, interruptor apagado, falla de tarjeta electrónica. - Recomendación: verificar control e interruptor dedicado; si el interruptor se dispara al volver a subirlo, no insistir y aplicar SEG-01. ### 3.4 Ruido, vibración u olor - Olor a humedad: filtro o serpentín sucio; programar mantenimiento (prioridad Baja o Media). - Olor a quemado o humo: emergencia (SEG-01). - Ruido metálico o vibración fuerte: visita técnica, prioridad Media. ### 3.5 Hielo en tuberías o en la unidad interior - Causas probables: filtro obstruido, falta de refrigerante, ventilador interior con falla. - Recomendación: apagar el equipo en modo frío y dejarlo en ventilación; visita técnica, prioridad Media. ### 3.6 Chiller o sistema central detenido - Afecta varios ambientes a la vez; prioridad Alta si incluye áreas críticas o el edificio completo. - Solicitar código de alarma del tablero de control y escalar al Supervisor Técnico de Climatización."
+    "texto": "Síntomas frecuentes. 3.1 No enfría o enfría poco: - Causas probables: filtro sucio, modo incorrecto, unidad exterior sucia u obstruida, falta de refrigerante, capacidad insuficiente para el ambiente. - Recomendación: aplicar §2; si persiste, visita técnica. Prioridad Media; Alta si es un ambiente crítico (REG-01 §3). 3.2 Gotea agua por la unidad interior: - Causas probables: drenaje obstruido, bandeja rajada, equipo desnivelado, filtro muy sucio. - Recomendación: apagar el equipo si el agua cae sobre equipos eléctricos y aplicar SEG-01; en otro caso, visita técnica con prioridad Media. 3.3 No enciende: - Causas probables: pilas del control, interruptor apagado, falla de tarjeta electrónica. - Recomendación: verificar control e interruptor dedicado; si el interruptor se dispara al volver a subirlo, no insistir y aplicar SEG-01. 3.4 Ruido, vibración u olor: - Olor a humedad: filtro o serpentín sucio; programar mantenimiento (prioridad Baja o Media). - Olor a quemado o humo: emergencia (SEG-01). - Ruido metálico o vibración fuerte: visita técnica, prioridad Media. 3.5 Hielo en tuberías o en la unidad interior: - Causas probables: filtro obstruido, falta de refrigerante, ventilador interior con falla. - Recomendación: apagar el equipo en modo frío y dejarlo en ventilación; visita técnica, prioridad Media. 3.6 Chiller o sistema central detenido: - Afecta varios ambientes a la vez; prioridad Alta si incluye áreas críticas o el edificio completo. - Solicitar código de alarma del tablero de control y escalar al Supervisor Técnico de Climatización."
   },
   {
     "ref": "TEC-02 §4",

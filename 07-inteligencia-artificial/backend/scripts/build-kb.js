@@ -21,12 +21,36 @@ function parseFrontmatter (raw) {
 }
 
 // Convierte el markdown de una sección en una sola línea legible
-function toOneLine (markdown) {
-  return markdown
-    .split(/\r?\n/)
-    .map(line => line.trim())
-    .filter(line => line && !/^\|?\s*-{3,}/.test(line)) // quita separadores de tabla
+const isTableRow = line => line.startsWith('|')
+const isTableSeparator = line => /^\|?[\s:|-]+$/.test(line) && line.includes('-')
+const tableCells = line => line.replace(/^\||\|$/g, '').split('|').map(cell => cell.trim())
+
+// Convierte una tabla Markdown en frases "Columna: valor; Columna: valor."
+function tableToText (rows) {
+  const [header, ...body] = rows.filter(row => !isTableSeparator(row)).map(tableCells)
+  if (!header || body.length === 0) return rows.join(' ')
+  return body
+    .map(cells => header.map((col, i) => cells[i] ? `${col}: ${cells[i]}` : null).filter(Boolean).join('; ') + '.')
     .join(' ')
+}
+
+function toOneLine (markdown) {
+  const lines = markdown.split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+  const parts = []
+  for (let i = 0; i < lines.length; i++) {
+    if (!isTableRow(lines[i])) {
+      // "### Prioridad Alta" → "Prioridad Alta:"
+      parts.push(lines[i].replace(/^#{3,6}\s*(.+?):?$/, '$1:'))
+      continue
+    }
+    const table = []
+    while (i < lines.length && isTableRow(lines[i])) table.push(lines[i++])
+    i--
+    parts.push(tableToText(table))
+  }
+  return parts
+    .join(' ')
+    .replace(/\*\*(.+?)\*\*/g, '$1') // quita negritas de Markdown
     .replace(/\s+/g, ' ')
     .trim()
 }
