@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react'
 
 import { Icon } from './Icon.jsx'
+import { useToast } from '../context/ToastContext.jsx'
 import {
   ESTADOS, CATEGORIA_ICON, CONFIANZA_NIVEL, asArray, analysisToText, formatSeconds
 } from '../lib/format.js'
 import styles from './AiCard.module.css'
 
 const PRIORIDAD = {
-  Alta: { className: styles.prioAlta, icon: 'emergency' },
-  Media: { className: styles.prioMedia, icon: 'warning' },
-  Baja: { className: styles.prioBaja, icon: 'low_priority' }
+  Alta: { tone: 'alta', icon: 'emergency', hint: 'Atención inmediata' },
+  Media: { tone: 'media', icon: 'warning', hint: 'Atención en el turno' },
+  Baja: { tone: 'baja', icon: 'low_priority', hint: 'Atención planificada' }
 }
 
 /**
- * Tarjeta oscura con la evaluación de SmartOps AI. Mientras `streaming`,
- * los campos que aún no llegaron se muestran como esqueletos.
+ * Evaluación de SmartOps AI. Mientras `streaming`, los campos pendientes son
+ * esqueletos y el campo que la IA está escribiendo muestra un cursor.
  */
 export function AiCard ({ analisis, documentos, solicitud, status, startedAt, elapsedMs, streaming, onSourceClick }) {
   const a = analisis ?? {}
@@ -26,18 +27,22 @@ export function AiCard ({ analisis, documentos, solicitud, status, startedAt, el
   const prio = PRIORIDAD[a.prioridad]
   const riesgoPersonas = a.estado === 'derivada' && a.prioridad === 'Alta' && /SSOMA/i.test(a.responsable ?? '')
 
-  return (
-    <article className={styles.card} aria-busy={streaming}>
-      <div className={styles.glow} aria-hidden='true' />
+  // El último campo del JSON parcial es el que el modelo está escribiendo ahora
+  const keys = Object.keys(a)
+  const writing = streaming ? keys[keys.length - 1] : null
+  const live = field => writing === field
 
+  return (
+    <article className={`${styles.card} ${streaming ? styles.isStreaming : ''}`} aria-busy={streaming}>
+      <div className={styles.glow} aria-hidden='true' />
+      {streaming && <span className={styles.scan} aria-hidden='true' />}
+
+      {/* Cabecera */}
       <header className={styles.header}>
         <div className={styles.titleWrap}>
-          <span className={styles.titleIcon}><Icon name='psychology' size={24} /></span>
+          <span className={`${styles.titleIcon} ${streaming ? styles.thinking : ''}`}><Icon name='psychology' size={24} /></span>
           <div>
-            <h2>
-              Evaluación sugerida por SmartOps AI
-              <span className={styles.titleDot} aria-hidden='true' />
-            </h2>
+            <h2>Evaluación sugerida por SmartOps AI</h2>
             <p>
               {documentos.length > 0
                 ? `Basada en ${documentos.length} fragmentos de la base de conocimiento FRIOCHAP`
@@ -53,33 +58,92 @@ export function AiCard ({ analisis, documentos, solicitud, status, startedAt, el
               : <>Analizado en <strong>{formatSeconds(elapsedMs)}</strong></>}
           </span>
           <span className={styles.badge}>
-            <span className={styles.muted}>Confianza:</span>
+            <span className={styles.muted}>Confianza</span>
             {a.confianza
               ? <ConfidenceMeter level={a.confianza} />
-              : streaming ? <Skeleton width='4rem' /> : <span className={styles.muted}>—</span>}
+              : streaming ? <Skeleton width='4.5rem' /> : <span className={styles.muted}>—</span>}
           </span>
         </div>
       </header>
 
       {streaming && <StreamSteps status={status} documentos={documentos} />}
 
-      <div className={styles.estadoRow}>
-        {estado
-          ? (
-            <span className={`${styles.estado} ${styles[`estado_${a.estado}`]}`}>
-              <Icon name={estado.icon} size={16} />
-              {estado.label}
-            </span>
-            )
-          : <Skeleton width='8rem' height='1.7rem' />}
-        <p className={styles.motivoEstado}>
-          <Text value={a.motivo_estado} streaming={streaming} width='70%' />
-        </p>
+      {/* Bloque principal: clasificación a la izquierda, prioridad arriba a la derecha */}
+      <div className={`${styles.hero} ${rechazada ? styles.heroRejected : ''}`}>
+        <div className={styles.classification}>
+          <div className={styles.estadoRow}>
+            {estado
+              ? (
+                <span className={`${styles.estado} ${styles[`estado_${a.estado}`]}`}>
+                  <Icon name={estado.icon} size={16} />
+                  {estado.label}
+                </span>
+                )
+              : <Skeleton width='8rem' height='1.8rem' />}
+          </div>
+          <p className={styles.motivoEstado}>
+            <Text value={a.motivo_estado} streaming={streaming} live={live('motivo_estado')} width='85%' />
+          </p>
+
+          {!rechazada && (
+            <dl className={styles.facts}>
+              <div className={styles.fact}>
+                <dt>Categoría sugerida</dt>
+                <dd>
+                  {a.categoria
+                    ? (
+                      <span className={styles.categoria}>
+                        <Icon name={CATEGORIA_ICON[a.categoria] ?? 'category'} size={18} />
+                        {a.categoria}
+                      </span>
+                      )
+                    : <Text value={null} streaming={streaming} width='10rem' height='2rem' />}
+                </dd>
+              </div>
+              <div className={styles.fact}>
+                <dt>Responsable sugerido</dt>
+                <dd className={styles.responsable}>
+                  {a.responsable && <Icon name='groups' size={20} className={styles.blue} />}
+                  <Text value={a.responsable} streaming={streaming} live={live('responsable')} width='12rem' />
+                </dd>
+              </div>
+            </dl>
+          )}
+        </div>
+
+        {!rechazada && (
+          <div className={`${styles.priority} ${prio ? styles[`p_${prio.tone}`] : styles.pPending}`}>
+            <span className={styles.fieldLabel}>Nivel de prioridad</span>
+            {prio
+              ? (
+                <>
+                  <div className={styles.priorityMain} key={a.prioridad}>
+                    <span className={styles.priorityIcon}><Icon name={prio.icon} size={28} fill /></span>
+                    <div>
+                      <span className={styles.priorityValue}>{a.prioridad}</span>
+                      <span className={styles.priorityHint}>{prio.hint}</span>
+                    </div>
+                  </div>
+                  {(a.motivo_prioridad || live('motivo_prioridad')) && (
+                    <p className={styles.priorityReason}>
+                      <Text value={a.motivo_prioridad} streaming={streaming} live={live('motivo_prioridad')} width='90%' />
+                    </p>
+                  )}
+                </>
+                )
+              : (
+                <div className={styles.priorityMain}>
+                  <Skeleton width='56px' height='56px' round />
+                  <div className={styles.skelStack}><Skeleton width='5rem' height='1.8rem' /><Skeleton width='7rem' /></div>
+                </div>
+                )}
+          </div>
+        )}
       </div>
 
       {riesgoPersonas && (
         <div className={styles.alert} role='alert'>
-          <Icon name='health_and_safety' size={22} />
+          <span className={styles.alertIcon}><Icon name='health_and_safety' size={22} /></span>
           <p>
             <strong>Riesgo para personas.</strong> Indicaciones iniciales (SEG-01 §2): alejar a las personas del área,
             no manipular el equipo ni tableros y, si hay humo, fuego o heridos, llamar al <b>116</b> (Bomberos) o <b>106</b> (SAMU).
@@ -87,116 +151,91 @@ export function AiCard ({ analisis, documentos, solicitud, status, startedAt, el
         </div>
       )}
 
-      {!rechazada && (
-        <>
-          <div className={styles.grid}>
-            <div className={styles.field}>
-              <span className={styles.fieldLabel}>Categoría sugerida</span>
-              {a.categoria
-                ? (
-                  <span className={styles.categoria}>
-                    <Icon name={CATEGORIA_ICON[a.categoria] ?? 'category'} size={20} />
-                    {a.categoria}
-                  </span>
-                  )
-                : <Text value={null} streaming={streaming} width='11rem' height='2.4rem' />}
-            </div>
-
-            <div className={styles.field}>
-              <span className={styles.fieldLabel}>Nivel de prioridad</span>
-              {prio
-                ? (
-                  <span className={`${styles.prioridad} ${prio.className}`}>
-                    <Icon name={prio.icon} size={20} />
-                    Prioridad: {a.prioridad}
-                  </span>
-                  )
-                : <Text value={null} streaming={streaming} width='9rem' height='2.4rem' />}
-              {(a.motivo_prioridad || (streaming && !a.motivo_prioridad && a.prioridad)) && (
-                <div className={`${styles.motivo} ${prio?.className ?? ''}`}>
-                  <strong>Motivo:</strong> <Text value={a.motivo_prioridad} streaming={streaming} width='80%' />
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className={styles.field}>
-            <span className={styles.fieldLabel}>Responsable sugerido</span>
-            <span className={styles.responsable}>
-              <Icon name='groups' size={20} className={styles.blue} />
-              <Text value={a.responsable} streaming={streaming} width='14rem' />
-            </span>
-          </div>
-        </>
-      )}
-
+      {/* Resumen */}
       <div className={styles.summary}>
         <span className={styles.sectionLabel}>
           <Icon name='summarize' size={16} className={styles.blue} />
-          Resumen ejecutivo generado por IA
+          Resumen ejecutivo
         </span>
         <p>
-          {a.resumen ? `“${a.resumen}”` : <Text value={null} streaming={streaming} lines={2} />}
+          {a.resumen
+            ? <>“{a.resumen}{live('resumen') && <span className='caret' />}”</>
+            : <Text value={null} streaming={streaming} lines={2} />}
         </p>
       </div>
 
-      {(pasos.length > 0 || (streaming && !rechazada)) && (
-        <section className={styles.steps}>
-          <span className={styles.sectionLabel}>
-            <Icon name='checklist' size={16} className={styles.blue} />
-            Plan de acción sugerido{pasos.length > 0 && ` (${pasos.length} ${pasos.length === 1 ? 'paso' : 'pasos'})`}
-          </span>
-          {pasos.length > 0
-            ? (
-              <ol>
-                {pasos.map((paso, i) => (
-                  <li key={i}>
-                    <span className={styles.stepNum}>{i + 1}</span>
-                    <p>{paso}</p>
-                  </li>
-                ))}
-              </ol>
-              )
-            : <SkeletonLines lines={3} />}
-        </section>
-      )}
+      {/* Dos columnas: plan de acción | datos y fuentes */}
+      <div className={styles.columns}>
+        {(pasos.length > 0 || (streaming && !rechazada)) && (
+          <section className={styles.steps}>
+            <span className={styles.sectionLabel}>
+              <Icon name='checklist' size={16} className={styles.blue} />
+              Plan de acción sugerido
+              {pasos.length > 0 && <span className={styles.counter}>{pasos.length}</span>}
+            </span>
+            {pasos.length > 0
+              ? (
+                <ol>
+                  {pasos.map((paso, i) => (
+                    <li key={i} style={{ '--i': i }}>
+                      <span className={styles.stepNum}>{i + 1}</span>
+                      <p>
+                        {paso}
+                        {live('recomendacion') && i === pasos.length - 1 && <span className='caret' />}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+                )
+              : <SkeletonLines lines={3} tall />}
+          </section>
+        )}
 
-      {faltante.length > 0 && (
-        <section className={styles.missing}>
-          <span className={styles.sectionLabel}>
-            <Icon name='help_outline' size={16} className={styles.amber} />
-            Información faltante a pedir al cliente
-          </span>
-          <ul>
-            {faltante.map((dato, i) => (
-              <li key={i}><Icon name='add' size={16} className={styles.blue} />{dato}</li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {(fuentes.length > 0 || streaming) && (
-        <section className={styles.sources}>
-          <span className={styles.sectionLabel}>
-            <Icon name='menu_book' size={16} className={styles.blue} />
-            Fuentes citadas
-          </span>
-          {fuentes.length > 0
-            ? (
-              <div className={styles.sourceChips}>
-                {fuentes.map(ref => (
-                  <button key={ref} type='button' onClick={() => onSourceClick?.(ref)} title='Ver el texto citado'>
-                    {ref}
-                  </button>
+        <div className={styles.side}>
+          {faltante.length > 0 && (
+            <section className={styles.missing}>
+              <span className={styles.sectionLabel}>
+                <Icon name='help_outline' size={16} className={styles.amber} />
+                Información a pedir
+                <span className={styles.counter}>{faltante.length}</span>
+              </span>
+              <ul>
+                {faltante.map((dato, i) => (
+                  <li key={i} style={{ '--i': i }}><Icon name='add_circle' size={16} className={styles.amber} />{dato}</li>
                 ))}
-              </div>
-              )
-            : <span className={styles.muted}>Esperando a que el modelo cite sus fuentes…</span>}
-        </section>
-      )}
+              </ul>
+            </section>
+          )}
+
+          {(fuentes.length > 0 || streaming) && (
+            <section className={styles.sources}>
+              <span className={styles.sectionLabel}>
+                <Icon name='menu_book' size={16} className={styles.blue} />
+                Fuentes citadas
+              </span>
+              {fuentes.length > 0
+                ? (
+                  <div className={styles.sourceChips}>
+                    {fuentes.map((ref, i) => (
+                      <button key={ref} type='button' style={{ '--i': i }} onClick={() => onSourceClick?.(ref)} title='Ver el texto citado'>
+                        {ref}
+                        <Icon name='arrow_outward' size={14} />
+                      </button>
+                    ))}
+                  </div>
+                  )
+                : <span className={styles.waiting}>Esperando a que el modelo cite sus fuentes…</span>}
+            </section>
+          )}
+        </div>
+      </div>
 
       {!streaming && analisis && (
         <div className={styles.cardFooter}>
+          <span className={styles.footNote}>
+            <Icon name='info' size={16} />
+            Propuesta generada por IA a partir de documentos autorizados.
+          </span>
           <CopyButton text={analysisToText(analisis, solicitud)} />
         </div>
       )}
@@ -240,20 +279,22 @@ function Timer ({ startedAt }) {
   return <strong>{(Math.max(0, now - (startedAt ?? now)) / 1000).toFixed(1)} s</strong>
 }
 
-function Text ({ value, streaming, width, height, lines = 1 }) {
-  if (typeof value === 'string' && value) return value
+function Text ({ value, streaming, live = false, width, height, lines = 1 }) {
+  if (typeof value === 'string' && value) return <>{value}{live && <span className='caret' />}</>
   if (streaming) return lines > 1 ? <SkeletonLines lines={lines} /> : <Skeleton width={width} height={height} />
   return <span className={styles.muted}>—</span>
 }
 
-function Skeleton ({ width = '100%', height = '0.95rem' }) {
-  return <span className={styles.skeleton} style={{ width, height }} aria-hidden='true' />
+function Skeleton ({ width = '100%', height = '0.95rem', round = false }) {
+  return <span className={styles.skeleton} style={{ width, height, borderRadius: round ? '16px' : undefined }} aria-hidden='true' />
 }
 
-function SkeletonLines ({ lines }) {
+function SkeletonLines ({ lines, tall = false }) {
   return (
     <span className={styles.skeletonLines} aria-hidden='true'>
-      {Array.from({ length: lines }, (_, i) => <Skeleton key={i} width={i === lines - 1 ? '60%' : '100%'} />)}
+      {Array.from({ length: lines }, (_, i) => (
+        <Skeleton key={i} width={i === lines - 1 ? '60%' : '100%'} height={tall ? '3rem' : undefined} />
+      ))}
     </span>
   )
 }
@@ -265,21 +306,23 @@ function ConfidenceMeter ({ level }) {
     <span className={`${styles.confidence} ${tone}`}>
       <strong>{level}</strong>
       <span className={styles.confBar} aria-hidden='true'>
-        <span style={{ width: `${(value / 3) * 100}%` }} />
+        {[1, 2, 3].map(n => <span key={n} className={n <= value ? styles.on : undefined} style={{ '--i': n }} />)}
       </span>
     </span>
   )
 }
 
 function CopyButton ({ text }) {
+  const toast = useToast()
   const [copied, setCopied] = useState(false)
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(text)
       setCopied(true)
+      toast.show('Análisis copiado al portapapeles', { tone: 'info' })
       setTimeout(() => setCopied(false), 1800)
     } catch {
-      setCopied(false)
+      toast.show('No se pudo copiar el análisis', { tone: 'critical' })
     }
   }
   return (

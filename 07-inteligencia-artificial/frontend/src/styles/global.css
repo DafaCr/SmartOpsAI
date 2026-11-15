@@ -55,7 +55,9 @@
   --radius-xs: 4px;
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
-  --header-h: 64px;
+  --header-h: 72px;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 *,
@@ -297,4 +299,97 @@ a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------- Movimiento ---------- */
+
+/* Entrada de página (se aplica al cambiar de ruta) */
+.route-enter {
+  animation: route-in 0.38s var(--ease-out) both;
+}
+
+@keyframes route-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Entrada escalonada: style={{ '--i': n }} */
+.rise {
+  animation: rise 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes ring {
+  0% { box-shadow: 0 0 0 0 var(--ring-color, rgb(229 72 77 / 45%)); }
+  70% { box-shadow: 0 0 0 14px rgb(0 0 0 / 0%); }
+  100% { box-shadow: 0 0 0 0 rgb(0 0 0 / 0%); }
+}
+
+@keyframes indeterminate {
+  0% { transform: translateX(-100%) scaleX(0.3); }
+  50% { transform: translateX(30%) scaleX(0.6); }
+  100% { transform: translateX(110%) scaleX(0.3); }
+}
+
+/* Cursor de escritura en vivo (campo que la IA está generando) */
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--primary);
+  border-radius: 1px;
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+
+/* Elevación suave al pasar el ratón */
+.lift {
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s;
+}
+
+.lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+
+.btn .icon {
+  transition: transform 0.2s var(--ease-out);
+}
+
+.btn-primary:hover:not(:disabled) .icon-nudge {
+  transform: translateX(3px);
+}
+
+.btn-primary:hover:not(:disabled) .icon-spark {
+  transform: rotate(-12deg) scale(1.1);
+}
+
+.btn-primary {
+  box-shadow: 0 1px 2px rgb(8 20 35 / 10%), 0 4px 14px -4px rgb(30 143 255 / 45%);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 1px 2px rgb(8 20 35 / 10%), 0 8px 20px -6px rgb(30 143 255 / 55%);
 }

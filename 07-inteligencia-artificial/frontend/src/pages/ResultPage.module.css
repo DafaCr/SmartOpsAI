@@ -87,7 +87,7 @@
   inset: 0;
   border-radius: 50%;
   background: var(--primary);
-  animation: ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: global(ping) 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .ticket {
@@ -204,7 +204,7 @@
   color: var(--text);
 }
 
-.meta .icon {
+.meta :global(.icon) {
   color: var(--primary);
 }
 

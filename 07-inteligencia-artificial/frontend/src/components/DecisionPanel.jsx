@@ -15,7 +15,8 @@ export function DecisionPanel ({ entry, disabled, onDecide }) {
   if (entry?.decision) {
     const d = DECISIONES[entry.decision.tipo]
     return (
-      <section className={`card ${styles.bar}`} aria-label='Decisión del operador'>
+      <section className={`card ${styles.bar} ${styles.doneBar} ${styles[`done_${d?.tone}`] ?? ''}`} aria-label='Decisión del operador'>
+        <span className={styles.doneIcon} aria-hidden='true'><Icon name={d?.icon ?? 'check'} size={24} fill /></span>
         <div className={styles.barText}>
           <span className={styles.title}>Decisión del operador</span>
           <span className={styles.registered}>
@@ -50,9 +51,12 @@ export function DecisionPanel ({ entry, disabled, onDecide }) {
         />
       )}
 
-      <section className={`card ${styles.bar}`} aria-label='Decisión del operador'>
+      <section className={`card ${styles.bar} ${styles.pendingBar} ${disabled ? '' : styles.sticky}`} aria-label='Decisión del operador'>
         <div className={styles.barText}>
-          <span className={styles.title}>Decisión del operador</span>
+          <span className={styles.title}>
+            <span className={styles.pendingDot} aria-hidden='true' />
+            Decisión del operador
+          </span>
           <span className={styles.hint}>
             {disabled ? 'Disponible cuando termine el análisis' : 'Valida la propuesta de la IA antes de gestionar la solicitud'}
           </span>

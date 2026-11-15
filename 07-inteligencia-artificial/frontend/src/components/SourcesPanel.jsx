@@ -17,7 +17,7 @@ export function SourcesPanel ({ documentos, fuentes, openRef, onToggle }) {
   }, [openRef])
 
   return (
-    <section className={`card ${styles.panel}`} aria-labelledby='fuentes-title'>
+    <section className={`card ${styles.panel} rise`} style={{ '--i': 1 }} aria-labelledby='fuentes-title'>
       <div className={styles.head}>
         <Icon name='menu_book' size={20} className={styles.blue} />
         <h2 id='fuentes-title'>Documentos consultados</h2>

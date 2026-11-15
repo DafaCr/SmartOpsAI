@@ -52,7 +52,7 @@
   height: 6px;
   border-radius: 50%;
   background: var(--primary);
-  animation: pulse 1.5s ease-in-out infinite;
+  animation: global(pulse) 1.5s ease-in-out infinite;
 }
 
 .updated {
@@ -222,7 +222,7 @@
   white-space: nowrap;
 }
 
-.kpiFoot .icon {
+.kpiFoot :global(.icon) {
   color: var(--primary);
 }
 
@@ -751,4 +751,41 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* ---------- Movimiento ---------- */
+.meter span,
+.barFill,
+.segmented > span {
+  transform-origin: left center;
+  animation: global(grow-x) 0.9s var(--ease-out) both;
+}
+
+.meter span {
+  animation-delay: 0.25s;
+}
+
+.barFill {
+  animation-delay: calc(0.35s + var(--i, 0) * 80ms);
+}
+
+.segmented > span {
+  animation-delay: 0.5s;
+}
+
+.kpiIcon {
+  transition: transform 0.3s var(--ease-spring), background-color 0.2s;
+}
+
+.kpi:hover .kpiIcon {
+  transform: scale(1.1) rotate(-6deg);
+  background: var(--ice);
+}
+
+.row td {
+  transition: background-color 0.15s;
+}
+
+.row:hover .reqTitle {
+  color: var(--primary-hover);
 }

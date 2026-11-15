@@ -55,7 +55,7 @@
   flex-direction: column;
   gap: 1rem;
   box-shadow: var(--shadow-2);
-  animation: appear 0.2s ease-out;
+  animation: global(appear) 0.2s ease-out;
 }
 
 .formCorrect { border: 2px solid var(--primary); }
@@ -138,7 +138,81 @@
     width: 100%;
   }
 
-  .actions .btn {
+  .actions :global(.btn) {
     flex: 1;
   }
+}
+
+/* Barra pendiente: queda fija abajo mientras se revisa el análisis */
+.pendingBar {
+  border-color: rgb(245 165 36 / 35%);
+  animation: global(rise) 0.45s var(--ease-out) both;
+  animation-delay: 0.2s;
+}
+
+.sticky {
+  position: sticky;
+  bottom: 1rem;
+  z-index: 5;
+  box-shadow: 0 -2px 6px rgb(8 20 35 / 4%), 0 16px 32px -12px rgb(8 20 35 / 25%);
+  backdrop-filter: blur(8px);
+  background: rgb(255 255 255 / 94%);
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.pendingDot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--warning);
+}
+
+.pendingDot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--warning);
+  animation: global(ping) 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Decisión registrada */
+.doneBar {
+  justify-content: flex-start;
+  animation: global(rise) 0.4s var(--ease-out) both;
+}
+
+.doneBar > .barText {
+  flex: 1;
+}
+
+.doneIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  animation: global(pop) 0.5s var(--ease-spring) both;
+}
+
+.done_success { border-color: var(--success-line); }
+.done_success .doneIcon { background: var(--success-soft); color: var(--success); }
+.done_primary { border-color: rgb(30 143 255 / 30%); }
+.done_primary .doneIcon { background: var(--ice); color: var(--primary); }
+.done_critical { border-color: var(--critical-line); }
+.done_critical .doneIcon { background: var(--critical-soft); color: var(--critical); }
+
+.actions :global(.btn) {
+  transition: transform 0.15s var(--ease-out), background-color 0.15s, box-shadow 0.2s;
+}
+
+.actions :global(.btn):hover:not(:disabled) {
+  transform: translateY(-1px);
 }

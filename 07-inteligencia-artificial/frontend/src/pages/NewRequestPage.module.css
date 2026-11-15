@@ -274,7 +274,7 @@
   inset: 0;
   border-radius: 50%;
   background: var(--primary);
-  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: global(ping) 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .footer {
@@ -295,7 +295,7 @@
   color: var(--muted);
 }
 
-.disclaimer .icon {
+.disclaimer :global(.icon) {
   color: #707785;
 }
 
@@ -305,7 +305,7 @@
 }
 
 .spin {
-  animation: spin 1s linear infinite;
+  animation: global(spin) 1s linear infinite;
 }
 
 .systemBar {
@@ -386,4 +386,43 @@
   .bullet {
     display: none;
   }
+}
+
+/* ---------- Movimiento ---------- */
+.channel {
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s var(--ease-out);
+}
+
+.channel:active {
+  transform: scale(0.96);
+}
+
+.channelActive :global(.icon) {
+  animation: global(pop) 0.35s var(--ease-spring);
+}
+
+.templates button {
+  transition: background-color 0.2s, color 0.2s, transform 0.2s var(--ease-out);
+}
+
+.templates button:hover {
+  color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.textareaWrap {
+  transition: background-color 0.25s, box-shadow 0.25s;
+}
+
+.textareaWrap:focus-within {
+  box-shadow: 0 0 0 4px rgb(30 143 255 / 8%);
+}
+
+.textareaWrap textarea {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contextIcon {
+  background: linear-gradient(135deg, #4fa9ff, var(--primary-hover));
+  box-shadow: 0 6px 14px -6px var(--primary);
 }

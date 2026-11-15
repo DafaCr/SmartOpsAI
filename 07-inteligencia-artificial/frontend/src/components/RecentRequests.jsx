@@ -26,11 +26,11 @@ export function RecentRequests ({ entries }) {
           )
         : (
           <div className={styles.grid}>
-            {entries.map(entry => {
+            {entries.map((entry, i) => {
               const { categoria, prioridad } = efectivo(entry)
               const c = canal(entry.solicitud.origen)
               return (
-                <Link key={entry.id} to={`/resultado/${entry.id}`} className={`card ${styles.item}`}>
+                <Link key={entry.id} to={`/resultado/${entry.id}`} className={`card ${styles.item} lift rise`} style={{ '--i': i }}>
                   <span className={styles.icon}>
                     <Icon name={entry.analisis.estado === 'rechazada' ? 'block' : CATEGORIA_ICON[categoria] ?? 'ac_unit'} size={20} />
                   </span>

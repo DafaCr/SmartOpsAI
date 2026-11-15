@@ -39,7 +39,7 @@ export default function NewRequestPage () {
     <main className={styles.page}>
       <title>Nueva solicitud · SmartOps AI</title>
 
-      <header className={styles.intro}>
+      <header className={`${styles.intro} rise`} style={{ '--i': 0 }}>
         <div className={styles.eyebrowRow}>
           <span className={`eyebrow ${styles.eyebrow}`}>Módulo de ingesta inteligente</span>
           <span className={styles.sep} aria-hidden='true' />
@@ -53,7 +53,8 @@ export default function NewRequestPage () {
       </header>
 
       <form
-        className={`card ${styles.form}`}
+        className={`card ${styles.form} rise`}
+        style={{ '--i': 1 }}
         onSubmit={(e) => { e.preventDefault(); submit() }}
       >
         <div className={styles.channelRow}>
@@ -101,6 +102,7 @@ export default function NewRequestPage () {
                 }
               }}
               placeholder='Ingresa los detalles técnicos o el mensaje directo del cliente…'
+              autoFocus
               rows={6}
               maxLength={MAX_LENGTH}
               required
@@ -142,15 +144,17 @@ export default function NewRequestPage () {
             La IA solo asiste y clasifica. Ninguna acción se ejecuta sin aprobación humana.
           </p>
           <button type='submit' className={`btn btn-primary ${styles.submit}`} disabled={!canSubmit}>
-            <Icon name={busy ? 'progress_activity' : 'auto_awesome'} size={20} className={busy ? styles.spin : undefined} />
+            <Icon name={busy ? 'progress_activity' : 'auto_awesome'} size={20} className={busy ? styles.spin : 'icon-spark'} />
             {busy ? 'Analizando…' : 'Analizar con IA'}
           </button>
         </div>
       </form>
 
-      <RecentRequests entries={history.entries.slice(0, 4)} />
+      <div className='rise' style={{ '--i': 2 }}>
+        <RecentRequests entries={history.entries.slice(0, 4)} />
+      </div>
 
-      <div className={styles.systemBar}>
+      <div className={`${styles.systemBar} rise`} style={{ '--i': 3 }}>
         <div className={styles.systemStats}>
           <span className={styles.systemOk}>
             <span className={styles.systemDot} aria-hidden='true' />

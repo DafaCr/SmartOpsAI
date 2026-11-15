@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router'
 
 import { useAnalysis } from '../context/AnalysisContext.jsx'
+import { useToast } from '../context/ToastContext.jsx'
 import { AiCard } from '../components/AiCard.jsx'
 import { SourcesPanel } from '../components/SourcesPanel.jsx'
 import { DecisionPanel } from '../components/DecisionPanel.jsx'
 import { DecisionBadge } from '../components/DecisionBadge.jsx'
 import { Icon } from '../components/Icon.jsx'
-import { ROLES, asArray, canal, formatSeconds, formatTime, shortRef } from '../lib/format.js'
+import { DECISIONES, ROLES, asArray, canal, formatSeconds, formatTime, shortRef } from '../lib/format.js'
 import styles from './ResultPage.module.css'
 
 /**
@@ -19,6 +20,7 @@ export default function ResultPage () {
   const navigate = useNavigate()
   const { stream, currentId, history, analyze } = useAnalysis()
   const [openRef, setOpenRef] = useState(null)
+  const toast = useToast()
 
   // Al terminar el stream, se pasa a la URL permanente del análisis
   useEffect(() => {
@@ -85,7 +87,7 @@ export default function ResultPage () {
 
       <div className={styles.grid}>
         <div className={styles.left}>
-          <section className={styles.original} aria-labelledby='original-title'>
+          <section className={`${styles.original} rise`} style={{ '--i': 0 }} aria-labelledby='original-title'>
             <div className={styles.originalHead}>
               <span className={styles.channelIcon}><Icon name={c.icon} size={20} /></span>
               <div>
@@ -147,7 +149,7 @@ export default function ResultPage () {
             </button>
           )}
 
-          <div className={`card ${styles.hitl}`}>
+          <div className={`card ${styles.hitl} rise`} style={{ '--i': 2 }}>
             <span className={styles.hitlIcon}><Icon name='verified' size={22} /></span>
             <div>
               <span className={styles.hitlTitle}>Control humano en el bucle</span>
@@ -162,7 +164,11 @@ export default function ResultPage () {
             <DecisionPanel
               entry={entry}
               disabled={!entry}
-              onDecide={(decision) => history.decide(entry.id, decision)}
+              onDecide={(decision) => {
+                history.decide(entry.id, decision)
+                const d = decision && DECISIONES[decision.tipo]
+                toast.show(d ? `Decisión registrada: ${d.label}` : 'Decisión anulada: el análisis vuelve a estar pendiente', { tone: d?.tone ?? 'info' })
+              }}
             />
           )}
         </div>

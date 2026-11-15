@@ -112,7 +112,7 @@
   font-size: 13px;
   line-height: 1.55;
   color: var(--text-2);
-  animation: appear 0.2s ease-out;
+  animation: global(appear) 0.2s ease-out;
 }
 
 .quoteDoc {

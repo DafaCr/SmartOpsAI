@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router'
 import { useAnalysis } from '../context/AnalysisContext.jsx'
 import { Icon } from '../components/Icon.jsx'
 import { DecisionBadge } from '../components/DecisionBadge.jsx'
+import { useCountUp } from '../hooks/useCountUp.js'
 import {
   CATEGORIAS, canal, efectivo, formatSeconds, formatTime, historyToCsv, prioridadClass, shortRef, timeAgo
 } from '../lib/format.js'
@@ -139,7 +140,9 @@ export default function MetricsPage () {
         <Kpi
           label='Solicitudes evaluadas'
           icon='checklist_rtl'
-          value={m.total}
+          num={m.total}
+          format={n => Math.round(n)}
+          i={0}
           suffix={`/ ${META.evaluaciones}`}
           caption={`Meta del ciclo: ${META.evaluaciones} evaluaciones`}
           progress={(m.total / META.evaluaciones) * 100}
@@ -149,7 +152,9 @@ export default function MetricsPage () {
         <Kpi
           label='Clasificación correcta'
           icon='psychology'
-          value={fmtPct(m.clasificacion)}
+          num={m.clasificacion}
+          format={fmtPct}
+          i={1}
           caption={`Meta: ≥ ${META.clasificacion} %`}
           trend={m.clasificacion != null ? m.clasificacion - META.clasificacion : null}
           progress={m.clasificacion}
@@ -159,7 +164,9 @@ export default function MetricsPage () {
         <Kpi
           label='Recomendaciones útiles'
           icon='thumb_up'
-          value={fmtPct(m.utiles)}
+          num={m.utiles}
+          format={fmtPct}
+          i={2}
           caption={`Meta: ≥ ${META.utiles} %`}
           trend={m.utiles != null ? m.utiles - META.utiles : null}
           progress={m.utiles}
@@ -169,7 +176,9 @@ export default function MetricsPage () {
         <Kpi
           label='Tiempo promedio de análisis'
           icon='bolt'
-          value={formatSeconds(m.tiempoIA)}
+          num={m.tiempoIA}
+          format={formatSeconds}
+          i={3}
           caption='Meta: < 2 min'
           progress={m.tiempoIA != null ? Math.max(0, 100 - (m.tiempoIA / META.tiempoMs) * 100) : null}
           footIcon='speed'
@@ -178,7 +187,7 @@ export default function MetricsPage () {
       </div>
 
       {/* Gobernanza */}
-      <section className={`card ${styles.governance}`}>
+      <section className={`card ${styles.governance} rise`} style={{ '--i': 4 }}>
         <div className={styles.govMain}>
           <div className={styles.shield}>
             <Icon name='shield' size={36} fill />
@@ -203,7 +212,7 @@ export default function MetricsPage () {
 
       {/* Gráficos */}
       <div className={styles.charts}>
-        <section className={`card ${styles.chartCard}`} aria-labelledby='dist-title'>
+        <section className={`card ${styles.chartCard} rise`} style={{ '--i': 5 }} aria-labelledby='dist-title'>
           <div className={styles.chartHead}>
             <div>
               <h2 id='dist-title'>Distribución por tipología</h2>
@@ -215,7 +224,7 @@ export default function MetricsPage () {
             ? <EmptyChart />
             : (
               <ul className={styles.bars}>
-                {m.distribucion.map(({ label, n }) => {
+                {m.distribucion.map(({ label, n }, idx) => {
                   const share = (n / m.total) * 100
                   return (
                     <li key={label} className={n === 0 ? styles.barZero : undefined} title={`${label}: ${n} (${share.toFixed(0)} %)`}>
@@ -224,7 +233,7 @@ export default function MetricsPage () {
                         <span className={styles.barValue}>{n} · {share.toFixed(0)} %</span>
                       </div>
                       <div className={styles.barTrack}>
-                        <span className={styles.barFill} style={{ width: `${Math.max(share, n ? 2 : 0)}%` }} />
+                        <span className={styles.barFill} style={{ width: `${Math.max(share, n ? 2 : 0)}%`, '--i': idx }} />
                       </div>
                     </li>
                   )
@@ -233,7 +242,7 @@ export default function MetricsPage () {
               )}
         </section>
 
-        <section className={`card ${styles.chartCard} ${styles.chartWide}`} aria-labelledby='speed-title'>
+        <section className={`card ${styles.chartCard} ${styles.chartWide} rise`} style={{ '--i': 6 }} aria-labelledby='speed-title'>
           <div className={styles.chartHead}>
             <div>
               <h2 id='speed-title'>Velocidad de respuesta y ciclo de validación</h2>
@@ -257,7 +266,7 @@ export default function MetricsPage () {
       </div>
 
       {/* Tabla */}
-      <section className={`card ${styles.tableCard}`} aria-labelledby='tabla-title'>
+      <section className={`card ${styles.tableCard} rise`} style={{ '--i': 7 }} aria-labelledby='tabla-title'>
         <div className={styles.tableHead}>
           <div>
             <h2 id='tabla-title'>Últimas solicitudes analizadas</h2>
@@ -342,10 +351,12 @@ export default function MetricsPage () {
   )
 }
 
-function Kpi ({ label, icon, value, suffix, caption, trend, progress, footIcon, foot }) {
+function Kpi ({ label, icon, num, format, i = 0, suffix, caption, trend, progress, footIcon, foot }) {
   const width = progress == null ? 0 : Math.min(100, Math.max(0, progress))
+  const animated = useCountUp(num)
+  const value = animated == null ? '—' : format(animated)
   return (
-    <section className={`card ${styles.kpi}`}>
+    <section className={`card ${styles.kpi} rise lift`} style={{ '--i': i }}>
       <div className={styles.kpiHead}>
         <span>{label}</span>
         <span className={styles.kpiIcon}><Icon name={icon} size={18} /></span>
