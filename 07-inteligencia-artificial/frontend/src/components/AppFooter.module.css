@@ -1,34 +1,116 @@
 .footer {
   margin-top: auto;
   background: var(--surface);
-  border-top: 1px solid rgb(192 199 214 / 30%);
-  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 0;
 }
 
 .inner {
+  max-width: 1440px;
+  margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem 1.5rem;
   flex-wrap: wrap;
   font-size: 12px;
-  font-weight: 500;
   line-height: 16px;
+  color: var(--muted);
+}
+
+.legal {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.sep {
+  color: var(--border);
+}
+
+.motto {
   color: var(--text-2);
 }
 
-.model {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted);
-  font-family: var(--mono);
+/* Firma */
+.signature {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 640px) {
+.by {
+  color: var(--muted);
+}
+
+.studio {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px 3px 4px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--canvas);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s, background-color 0.2s, transform 0.2s var(--ease-out), box-shadow 0.2s;
+}
+
+a.studio:hover {
+  border-color: rgb(30 143 255 / 45%);
+  background: var(--ice);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -6px rgb(30 143 255 / 50%);
+}
+
+.studioName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.mark {
+  width: 18px;
+  height: 18px;
+  color: var(--corporate);
+  transition: color 0.2s, transform 0.3s var(--ease-spring);
+}
+
+a.studio:hover .mark {
+  color: var(--primary);
+  transform: rotate(-8deg);
+}
+
+.dot {
+  color: var(--border);
+}
+
+.author {
+  color: var(--text-2);
+}
+
+@media (max-width: 760px) {
   .inner {
     padding: 0 1rem;
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .sep,
+  .dot {
+    display: none;
+  }
+
+  .legal,
+  .signature {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
   }
 }

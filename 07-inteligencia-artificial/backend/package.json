@@ -10,7 +10,7 @@
     "test": "node --test"
   },
   "keywords": [],
-  "author": "",
+  "author": "Damner Carranza (DaruStudio) (https://darustudio.com)",
   "license": "ISC",
   "type": "module",
   "dependencies": {

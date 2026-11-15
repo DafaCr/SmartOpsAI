@@ -1,15 +1,54 @@
-import { useAnalysis } from '../context/AnalysisContext.jsx'
 import styles from './AppFooter.module.css'
 
+// Firma del estudio. Pon aquí la URL de DaruStudio para que el nombre sea un enlace.
+const STUDIO = {
+  name: 'DaruStudio',
+  author: 'Damner Carranza',
+  url: 'https://darustudio.com'
+}
+
 export function AppFooter () {
-  const { health } = useAnalysis()
+  const year = new Date().getFullYear()
+
+  const studioName = (
+    <span className={styles.studioName}>
+      <StudioMark />
+      {STUDIO.name}
+    </span>
+  )
 
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <span>© {new Date().getFullYear()} FRIOCHAP S.A.C. — SmartOps AI · La IA propone, el operador decide.</span>
-        {health.data?.model && <span className={styles.model}>Modelo: {health.data.model}</span>}
+        <p className={styles.legal}>
+          © {year} FRIOCHAP S.A.C. · SmartOps AI
+          <span className={styles.sep} aria-hidden='true'>—</span>
+          <span className={styles.motto}>La IA propone, el operador decide.</span>
+        </p>
+
+        <p className={styles.signature}>
+          <span className={styles.by}>Diseñado y desarrollado por</span>
+          {STUDIO.url
+            ? (
+              <a href={STUDIO.url} target='_blank' rel='noopener noreferrer' className={styles.studio} title={`${STUDIO.name} — ${STUDIO.author}`}>
+                {studioName}
+              </a>
+              )
+            : <span className={styles.studio} title={`${STUDIO.name} — ${STUDIO.author}`}>{studioName}</span>}
+          <span className={styles.dot} aria-hidden='true'>·</span>
+          <span className={styles.author}>Un proyecto de {STUDIO.author}</span>
+        </p>
       </div>
     </footer>
+  )
+}
+
+// Monograma "D" del estudio
+function StudioMark () {
+  return (
+    <svg className={styles.mark} viewBox='0 0 20 20' aria-hidden='true'>
+      <rect width='20' height='20' rx='6' fill='currentColor' />
+      <path d='M6.5 5.5h3.6a4.5 4.5 0 0 1 0 9H6.5z' fill='none' stroke='#fff' strokeWidth='1.8' strokeLinejoin='round' />
+    </svg>
   )
 }

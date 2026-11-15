@@ -16,7 +16,7 @@
     "build:kb": "npm run build:kb --workspace=backend"
   },
   "keywords": [],
-  "author": "",
+  "author": "Damner Carranza (DaruStudio) (https://darustudio.com)",
   "license": "ISC",
   "type": "commonjs"
 }
