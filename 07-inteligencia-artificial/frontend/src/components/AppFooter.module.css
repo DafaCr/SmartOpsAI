@@ -34,12 +34,18 @@
   color: var(--text-2);
 }
 
-/* Firma */
+/* Firma: estudio (línea principal) + autor (línea pequeña debajo) */
 .signature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+
+.signatureMain {
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  flex-wrap: wrap;
 }
 
 .by {
@@ -85,12 +91,33 @@ a.studio:hover .mark {
   transform: rotate(-8deg);
 }
 
-.dot {
-  color: var(--border);
+/* Línea del autor: pequeña, espaciada, con un trazo fino delante */
+.author {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 10.5px;
+  line-height: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.author {
-  color: var(--text-2);
+.flourish {
+  width: 22px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary));
+  opacity: 0.7;
+}
+
+.authorName {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  background: linear-gradient(90deg, var(--corporate), var(--primary-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @media (max-width: 760px) {
@@ -99,18 +126,22 @@ a.studio:hover .mark {
     flex-direction: column;
     align-items: flex-start;
   }
-}
 
-@media (max-width: 760px) {
-  .sep,
-  .dot {
+  .sep {
     display: none;
   }
 
-  .legal,
-  .signature {
+  .legal {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.35rem;
+  }
+
+  .signature {
+    align-items: flex-start;
+  }
+
+  .signatureMain {
+    flex-wrap: wrap;
   }
 }

@@ -26,18 +26,22 @@ export function AppFooter () {
           <span className={styles.motto}>La IA propone, el operador decide.</span>
         </p>
 
-        <p className={styles.signature}>
-          <span className={styles.by}>Diseñado y desarrollado por</span>
-          {STUDIO.url
-            ? (
-              <a href={STUDIO.url} target='_blank' rel='noopener noreferrer' className={styles.studio} title={`${STUDIO.name} — ${STUDIO.author}`}>
-                {studioName}
-              </a>
-              )
-            : <span className={styles.studio} title={`${STUDIO.name} — ${STUDIO.author}`}>{studioName}</span>}
-          <span className={styles.dot} aria-hidden='true'>·</span>
-          <span className={styles.author}>Un proyecto de {STUDIO.author}</span>
-        </p>
+        <div className={styles.signature}>
+          <p className={styles.signatureMain}>
+            <span className={styles.by}>Diseñado y desarrollado por</span>
+            {STUDIO.url
+              ? (
+                <a href={STUDIO.url} target='_blank' rel='noopener noreferrer' className={styles.studio} title={`${STUDIO.name} — ${STUDIO.author}`}>
+                  {studioName}
+                </a>
+                )
+              : <span className={styles.studio} title={`${STUDIO.name} — ${STUDIO.author}`}>{studioName}</span>}
+          </p>
+          <p className={styles.author}>
+            <span className={styles.flourish} aria-hidden='true' />
+            Un proyecto de <span className={styles.authorName}>{STUDIO.author}</span>
+          </p>
+        </div>
       </div>
     </footer>
   )
