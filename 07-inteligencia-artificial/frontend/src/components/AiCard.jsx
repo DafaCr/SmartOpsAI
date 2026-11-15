@@ -118,7 +118,7 @@ export function AiCard ({ analisis, documentos, solicitud, status, startedAt, el
               ? (
                 <>
                   <div className={styles.priorityMain} key={a.prioridad}>
-                    <span className={styles.priorityIcon}><Icon name={prio.icon} size={28} fill /></span>
+                    <span className={styles.priorityIcon}><Icon name={prio.icon} size={20} fill /></span>
                     <div>
                       <span className={styles.priorityValue}>{a.prioridad}</span>
                       <span className={styles.priorityHint}>{prio.hint}</span>
@@ -133,8 +133,8 @@ export function AiCard ({ analisis, documentos, solicitud, status, startedAt, el
                 )
               : (
                 <div className={styles.priorityMain}>
-                  <Skeleton width='56px' height='56px' round />
-                  <div className={styles.skelStack}><Skeleton width='5rem' height='1.8rem' /><Skeleton width='7rem' /></div>
+                  <Skeleton width='38px' height='38px' round />
+                  <div className={styles.skelStack}><Skeleton width='4rem' height='1.3rem' /><Skeleton width='6rem' /></div>
                 </div>
                 )}
           </div>

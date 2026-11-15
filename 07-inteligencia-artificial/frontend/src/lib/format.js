@@ -7,10 +7,11 @@ export const CANALES = [
 ]
 export const canal = value => CANALES.find(c => c.value === value) ?? { value, label: value, icon: 'inbox' }
 
+// Área del usuario: decide qué documentos (campo `acceso`) se envían a la IA
 export const ROLES = [
-  { value: 'operaciones', label: 'Operaciones' },
-  { value: 'administracion', label: 'Administración' },
-  { value: 'todos', label: 'General' }
+  { value: 'operaciones', label: 'Operaciones', hint: 'Incluye guías técnicas de diagnóstico y mantenimiento (TEC-01, TEC-02, MAN-01). Sin facturación.' },
+  { value: 'administracion', label: 'Administración', hint: 'Incluye facturación, pagos y comprobantes (ADM-01). Sin guías técnicas.' },
+  { value: 'todos', label: 'General', hint: 'Solo documentos de acceso general: políticas, prioridades, seguridad, servicios y FAQ.' }
 ]
 
 export const CATEGORIAS = [

@@ -124,6 +124,10 @@ export default function NewRequestPage () {
                   {ROLES.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
                 </select>
               </p>
+              <p className={styles.roleHint} key={rol}>
+                <Icon name='info' size={14} />
+                {ROLES.find(r => r.value === rol)?.hint}
+              </p>
             </div>
           </div>
           <div className={styles.model}>
