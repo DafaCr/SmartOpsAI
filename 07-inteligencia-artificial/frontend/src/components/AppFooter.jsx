@@ -34,6 +34,7 @@ export function AppFooter () {
 
         <div className={styles.signature}>
           <p className={styles.signatureMain}>
+            <span className={styles.flourish} aria-hidden='true' />
             <span className={styles.by}>Diseñado y desarrollado por</span>
             {STUDIO.url
               ? (
